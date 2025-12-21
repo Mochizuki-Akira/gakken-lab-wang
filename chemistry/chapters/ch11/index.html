@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>十一、電池と電気分解</title>
+
+<!-- 打印模式识别（学生/教师） -->
+<style>
+  @media print {
+    body:not(.teacher) .teacher-only { display: none !important; visibility: hidden !important; }
+    body.teacher .teacher-only { visibility: visible !important; }
+    body.teacher p.teacher-only,
+    body.teacher div.teacher-only,
+    body.teacher section.teacher-only,
+    body.teacher article.teacher-only,
+    body.teacher table.teacher-only,
+    body.teacher ol.teacher-only,
+    body.teacher ul.teacher-only { display: block !important; }
+    body.teacher li.teacher-only { display: list-item !important; }
+  }
+</style>
+
+<style>
+  :root{--ink:#0f172a;--muted:#475569;--border:#e2e8f0;--bg:#ffffff;--accent:#2563eb;--lh:1.85;}
+  html,body{background:var(--bg);color:var(--ink);}
+  body{font-family:"Hiragino Kaku Gothic ProN","Noto Sans CJK JP",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+       max-width:900px;margin:0 auto;padding:28px;line-height:var(--lh)}
+  h1{font-size:clamp(24px,3.6vw,34px);margin:0 0 1rem;border-left:6px solid var(--accent);padding-left:12px}
+  h2,h3,h4{margin:1.1rem 0 0.5rem;border-left:4px solid var(--accent);padding-left:10px}
+  p{margin:0 0 0.6rem}
+  ul,ol{margin:0.2rem 0 0.9rem 1.4rem}
+  li{margin:0.25rem 0}
+  table{width:100%;border-collapse:collapse;margin:1rem 0;border:1px solid var(--border)}
+  th,td{border:1px solid var(--border);padding:8px 10px;vertical-align:top}
+  tbody tr:nth-child(even){background:#fbfdff}
+  figure{margin:1rem 0;border:1px solid var(--border);padding:10px;border-radius:10px;background:#f8fafc}
+  figure img{display:block;width:100%;height:auto}
+  figcaption{margin-top:6px;color:var(--muted);font-size:0.95rem}
+  .note{border-left:4px solid var(--accent);background:#f0f7ff;padding:10px 12px;border-radius:8px;margin:10px 0}
+  hr{border:none;border-top:1px dashed var(--border);margin:24px 0}
+  .teacher-only{display:none;}
+  body.teacher .teacher-only{display:block;}
+  .h-14lines{height:auto;width:auto;max-height:calc(1em * var(--lh) * 14)}
+  .h-6lines{height:auto;width:auto;max-height:calc(1em * var(--lh) * 6)}
+  @media print{
+    @page{size:A4;margin:14mm}
+    body{padding:0}
+    h1,h2,h3,h4{border-color:#000}
+    .page-break-start{break-before:page;page-break-before:always;}
+    .keep-together{break-inside:avoid;page-break-inside:avoid;}
+  }
+</style>
+
+<link href="../../common/style_base.css" rel="stylesheet"/>
+<script defer="" src="../../common/script.js"></script>
+
+<style>
+  a{pointer-events:auto;}
+</style>
+
+<!-- 只保留打印按钮“按当前模式打印”的逻辑；教师按钮完全交给 common/script.js -->
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var oldBtn = document.getElementById('btn-print');
+  if (!oldBtn) return;
+
+  var btn = oldBtn.cloneNode(true);
+  btn.type = 'button';
+  btn.removeAttribute('onclick');
+  oldBtn.parentNode.replaceChild(btn, oldBtn);
+
+  let printing = false;
+  btn.addEventListener('click', function (e) {
+    e.preventDefault(); e.stopPropagation();
+    if (printing) return;
+    printing = true;
+
+    const isTeacher = document.body.classList.contains('teacher');
+    document.body.classList.toggle('print-teacher', isTeacher);
+    document.body.classList.toggle('print-student', !isTeacher);
+
+    requestAnimationFrame(function () {
+      window.print();
+      setTimeout(function () {
+        printing = false;
+        document.body.classList.remove('print-teacher','print-student');
+      }, 1200);
+    });
+  }, { capture: true, passive: false });
+});
+</script>
+
+<style id="eq-area-style">
+.eq-area{
+  border:1px dashed var(--border);
+  border-radius:10px;
+  background:#ffffff;
+  padding:10px 12px;
+  margin:10px 0;
+}
+body:not(.teacher) .eq-area{
+  min-height:calc(1em * var(--lh) * 6);
+  color:transparent !important;
+  text-shadow:none !important;
+  user-select:none;
+  pointer-events:none;
+}
+body:not(.teacher) .eq-area *{
+  color:transparent !important;
+  border-color:transparent !important;
+}
+body.teacher .eq-area{
+  min-height:unset;
+  color:inherit;
+}
+@media print{
+  body.print-student .eq-area{
+    min-height:calc(1em * var(--lh) * 6);
+    color:transparent !important;
+    user-select:none;
+    pointer-events:none;
+  }
+  body.print-student .eq-area *{ color:transparent !important; }
+  body.print-teacher .eq-area{
+    color:inherit !important;
+    user-select:auto;
+    pointer-events:auto;
+  }
+  body.print-teacher .eq-area *{
+    color:inherit !important;
+    user-select:auto;
+    pointer-events:auto;
+  }
+}
+</style>
+</head>
+<body class="student">
+<header class="site">
+<div><strong>電池と電気分解</strong></div>
+<div>
+<button class="btn btn-primary" id="btn-teacher">教師用</button>
+<button class="btn" id="btn-print">印刷</button>
+</div>
+</header>
+<main>
+<h1>十一、電池と電気分解</h1>
+<h2>0. イオン化傾向</h2>
+<p>
+  Li &gt; K &gt; Ca &gt; Na &gt; Mg &gt; Al &gt; Zn &gt; Fe &gt; Ni &gt; Sn &gt; Pb &gt; H<sub>2</sub> &gt; Cu &gt; Hg &gt; Ag &gt; Pt &gt; Au
+</p>
+<h2>1. 電池の基礎</h2>
+<h3>1-1. 電池とは</h3>
+<p><strong>電池</strong>：酸化還元反応を利用して、化学エネルギーを電気エネルギーとして取り出す装置。</p>
+<h3>1-2. 電池の基本構造と電流の向き</h3>
+<p><strong>基本の考え方</strong></p>
+<ul>
+<li>電子は<strong>負極（酸化が起こる電極）</strong>から外部回路へ出て、<strong>正極（還元が起こる電極）</strong>へ流れ込む。</li>
+<li>溶液中では、電気的中性を保つために<strong>陽イオン/陰イオンが移動</strong>する（外部回路は電子、溶液はイオン）。</li>
+<li>電池の記述は「<strong>負極の酸化</strong>」と「<strong>正極の還元</strong>」の半反応式を立て、電子数をそろえて加える。</li>
+</ul>
+<figure class="keep-together">
+<img alt="電池の基本構造（概念図）" class="h-6lines" src="assets/1101.png"/>
+<figcaption>図1101　電池の基本構造（概念図）</figcaption>
+</figure>
+<h3>1-3. 分極と減極</h3>
+<p><strong>分極</strong>：正極（多くはCuなど）表面に水素などが付着し、電子の受け渡しが進みにくくなることで、電流が弱くなる現象。</p>
+<p><strong>減極剤</strong>：分極の原因物質（例：H<sub>2</sub>）を消費する/発生させないために用いる物質（例：MnO<sub>2</sub>など）。</p>
+<hr/>
+<h2>2. 一次電池（ボルタ電池・ダニエル電池）</h2>
+<h3>2-1. ボルタ電池</h3>
+<p>代表例：Zn と Cu を希硫酸などに入れて作る簡単な電池。<strong>起電力は得られるが分極が起こりやすい</strong>。</p>
+<figure class="keep-together">
+<img alt="ボルタ電池" class="h-6lines" src="assets/1102.png"/>
+<figcaption>図1102　ボルタ電池</figcaption>
+</figure>
+<div class="note eq-area">
+<p><strong>半反応式（典型例）</strong></p>
+<ul>
+<li>負極（酸化）：Zn → Zn<sup>2+</sup> + 2e<sup>−</sup></li>
+<li>正極（還元）：2H<sup>+</sup> + 2e<sup>−</sup> → H<sub>2</sub></li>
+<li>全反応：Zn + 2H<sup>+</sup> → Zn<sup>2+</sup> + H<sub>2</sub></li>
+</ul>
+</div>
+<p>正極表面にH<sub>2</sub>が付着して<strong>分極</strong>しやすい（電流が弱くなる）。</p>
+<figure class="keep-together">
+<img alt="例題" src="assets/1103.png"/>
+<figcaption>図1103　例題</figcaption>
+</figure>
+<h3>2-2. ダニエル電池</h3>
+<p>ZnSO<sub>4</sub>水溶液中のZn板（負極）と、CuSO<sub>4</sub>水溶液中のCu板（正極）を、隔膜や塩橋でつないだ電池。<strong>分極が起こりにくく、安定な電流</strong>を取り出せる。</p>
+<figure class="keep-together">
+<img alt="ダニエル電池（模式図）" class="h-6lines" src="assets/1104.png"/>
+<figcaption>図1104　ダニエル電池（模式図）</figcaption>
+</figure>
+<div class="note eq-area">
+<p><strong>半反応式</strong></p>
+<ul>
+<li>負極（酸化）：Zn → Zn<sup>2+</sup> + 2e<sup>−</sup></li>
+<li>正極（還元）：Cu<sup>2+</sup> + 2e<sup>−</sup> → Cu</li>
+<li>全反応：Zn + Cu<sup>2+</sup> → Zn<sup>2+</sup> + Cu</li>
+</ul>
+</div>
+<p>ポイント：</p>
+<ul>
+<li>Zn側ではZnが溶けてZn<sup>2+</sup>が増える。</li>
+<li>Cu側ではCu<sup>2+</sup>が減ってCuが析出する。</li>
+<li>溶液の電気的中性を保つため、塩橋中のイオンが移動する（例：陰イオンはZn側へ、陽イオンはCu側へ）。</li>
+</ul>
+<hr/>
+<h2>3. 二次電池（鉛蓄電池）</h2>
+<h3>3-1. 鉛蓄電池の特徴</h3>
+<p><strong>二次電池</strong>：放電後に外部電源で逆向きに電流を流し、元の物質に戻して再利用できる電池。</p>
+<p>鉛蓄電池は自動車のバッテリーとして代表的。電解液は希硫酸（H<sub>2</sub>SO<sub>4</sub>）。</p>
+<figure class="keep-together">
+<img alt="鉛蓄電池（模式図）" class="h-6lines" src="assets/1105.png"/>
+<figcaption>図1105　鉛蓄電池（模式図）</figcaption>
+</figure>
+<h3>3-2. 放電時の反応</h3>
+<div class="note eq-area">
+<p><strong>放電（電池として働く向き）</strong></p>
+<ul>
+<li>負極（Pbの酸化）：Pb + SO<sub>4</sub><sup>2−</sup> → PbSO<sub>4</sub> + 2e<sup>−</sup></li>
+<li>正極（PbO<sub>2</sub>の還元）：PbO<sub>2</sub> + 4H<sup>+</sup> + SO<sub>4</sub><sup>2−</sup> + 2e<sup>−</sup> → PbSO<sub>4</sub> + 2H<sub>2</sub>O</li>
+<li>全反応：Pb + PbO<sub>2</sub> + 2H<sub>2</sub>SO<sub>4</sub> → 2PbSO<sub>4</sub> + 2H<sub>2</sub>O</li>
+</ul>
+</div>
+<p>放電が進むと、両極にPbSO<sub>4</sub>が生成し、電解液中のH<sub>2</sub>SO<sub>4</sub>が減るため<strong>濃度（比重）が下がる</strong>（状態判定に利用）。</p>
+<h3>3-3. 充電時の反応</h3>
+<p>外部電源で逆向きに電流を流すと、放電反応が逆向きに進み、PbとPbO<sub>2</sub>が再生する。</p>
+<ul>
+<li>「放電の全反応」を逆に書いたものが充電の全反応。</li>
+<li>充電ではH<sub>2</sub>SO<sub>4</sub>が増え、比重が上がる。</li>
+</ul>
+<hr/>
+<h2>4. 燃料電池</h2>
+<h3>4-1. 燃料電池の考え方</h3>
+<p><strong>燃料電池</strong>：燃料（代表：H<sub>2</sub>）と酸化剤（代表：O<sub>2</sub>）を外部から連続供給し、反応により電気を取り出す電池。燃料が供給される限り発電できる。</p>
+<figure class="keep-together">
+<img alt="燃料電池（模式図）" class="h-6lines" src="assets/1106.png"/>
+<figcaption>図1106　燃料電池（模式図）</figcaption>
+</figure>
+<h3>4-2. 水素-酸素燃料電池（代表例）</h3>
+<div class="note eq-area">
+<p><strong>典型的な半反応式（酸性電解質の例）</strong></p>
+<ul>
+<li>負極（酸化）：H<sub>2</sub> → 2H<sup>+</sup> + 2e<sup>−</sup></li>
+<li>正極（還元）：O<sub>2</sub> + 4H<sup>+</sup> + 4e<sup>−</sup> → 2H<sub>2</sub>O</li>
+<li>全反応：2H<sub>2</sub> + O<sub>2</sub> → 2H<sub>2</sub>O</li>
+</ul>
+</div>
+<p>生成物が水で、排出物が少ないことから環境負荷が小さい（ただし燃料製造・貯蔵など課題もある）。</p>
+<hr/>
+<h2>5. 電気分解</h2>
+<h3>5-1. 電気分解とは</h3>
+<p><strong>電気分解</strong>：外部電源で電流を流し、電極で酸化還元反応を起こして物質を生成する操作。</p>
+<div class="eq-area"><ul>
+<li><strong>陰極（−）</strong>：電子が供給される → <strong>還元</strong>が起こる。</li>
+<li><strong>陽極（＋）</strong>：電子が奪われる → <strong>酸化</strong>が起こる。</li>
+</ul></div>
+<figure class="keep-together">
+<img alt="電気分解（模式図）" class="h-6lines" src="assets/1107.png"/>
+<figcaption>図1107　電気分解（模式図）</figcaption>
+</figure>
+<h3>5-2. 電極で起こる反応の優先順位</h3>
+<div class="eq-area">
+<h4>① 陽極（酸化：電子を失う）</h4>
+  <ol>
+    <li>
+      <strong>電極が Pt、C 以外の金属か？</strong><br>
+      YES → <strong>金属が溶ける（電極が溶解）</strong><br>
+      例：Cu → Cu<sup>2+</sup> + 2e<sup>−</sup>
+    </li>
+    <li>
+      NO の場合：<strong>電解液にハロゲン化物イオン（Cl<sup>−</sup>、Br<sup>−</sup>、I<sup>−</sup>）を含むか？</strong><br>
+      YES → <strong>ハロゲン単体が発生</strong>（Cl<sub>2</sub>、Br<sub>2</sub>、I<sub>2</sub> など）
+    </li>
+    <li>
+      NO の場合：<strong>O<sub>2</sub> が発生（主に水/水酸化物イオンの酸化）</strong><br>
+      ・液性が中性〜酸性：2H<sub>2</sub>O → O<sub>2</sub> + 4H<sup>+</sup> + 4e<sup>−</sup><br>
+      ・液性が塩基性：4OH<sup>−</sup> → O<sub>2</sub> + 2H<sub>2</sub>O + 4e<sup>−</sup>
+    </li>
+  </ol>
+
+  <h4>② 陰極（還元：電子を受け取る）</h4>
+  <ol>
+    <li>
+      <strong>電解液に Cu<sup>2+</sup> や Ag<sup>+</sup> を含むか？</strong><br>
+      YES → <strong>Cu や Ag が析出（イオンが還元され金属になる）</strong><br>
+      Cu<sup>2+</sup> + 2e<sup>−</sup> → Cu<br>
+      Ag<sup>+</sup> + e<sup>−</sup> → Ag
+    </li>
+    <li>
+      NO の場合：<strong>H<sub>2</sub> が発生</strong><br>
+      ・液性が酸性：2H<sup>+</sup> + 2e<sup>−</sup> → H<sub>2</sub><br>
+      ・液性が中性〜塩基性：2H<sub>2</sub>O + 2e<sup>−</sup> → H<sub>2</sub> + 2OH<sup>−</sup>
+    </li>
+  </ol>
+
+  <h4>覚え方（簡単）</h4>
+  <ul>
+    <li><strong>陽極：</strong>「金属が溶ける → ハロゲン → 水（O<sub>2</sub>）」</li>
+    <li><strong>陰極：</strong>「金属イオン（Cu<sup>2+</sup>, Ag<sup>+</sup>）→ 水/水素イオン（H<sub>2</sub>）」</li>
+  </ul>
+</div>
+<h3>5-3. 代表例</h3>
+<h4>(1) CuCl<sub>2</sub>水溶液（不活性電極）</h4>
+<div class="eq-area"><ul>
+<li>陰極：Cu<sup>2+</sup> + 2e<sup>−</sup> → Cu（銅の析出）</li>
+<li>陽極：2Cl<sup>−</sup> → Cl<sub>2</sub> + 2e<sup>−</sup>（塩素発生）</li>
+</ul></div>
+<h4>(2) NaCl水溶液（食塩水、濃い場合の代表）</h4>
+<div class="eq-area"><ul>
+<li>陰極：2H<sub>2</sub>O + 2e<sup>−</sup> → H<sub>2</sub> + 2OH<sup>−</sup>（水素発生）</li>
+<li>陽極：2Cl<sup>−</sup> → Cl<sub>2</sub> + 2e<sup>−</sup>（塩素発生）</li>
+<li>溶液：NaOHが生成（OH<sup>−</sup>増加）</li>
+</ul></div>
+<h4>(3) 希硫酸（＝水の電気分解）</h4>
+<div class="eq-area"><ul>
+<li>陰極：2H<sup>+</sup> + 2e<sup>−</sup> → H<sub>2</sub></li>
+<li>陽極：2H<sub>2</sub>O → O<sub>2</sub> + 4H<sup>+</sup> + 4e<sup>−</sup></li>
+<li>全反応：2H<sub>2</sub>O → 2H<sub>2</sub> + O<sub>2</sub></li>
+</ul></div>
+<h4>(4) CuSO<sub>4</sub>水溶液</h4>
+<p>電極が<strong>白金（不活性）</strong>か<strong>銅（活性）</strong>かで陽極反応が変わる。</p>
+<div class="eq-area"><ul>
+<li>不活性電極：陰極でCu析出、陽極でO<sub>2</sub>発生（硫酸イオンは基本的に放電しにくい）。</li>
+<li>銅電極：陰極でCu析出、陽極はCu → Cu<sup>2+</sup> + 2e<sup>−</sup>（銅が溶ける）。溶液中のCu<sup>2+</sup>濃度がほぼ一定になりやすい。</li>
+</ul></div>
+<hr/>
+<h2>6. 電気量と生成量（ファラデーの法則）</h2>
+<h3>6-1. 電気量Q</h3>
+<div class="note">
+<p><strong>Q = It</strong>（Q：C、I：A、t：s）</p>
+</div>
+<h3>6-2. 電子の物質量</h3>
+<div class="note eq-area">
+<p><strong>n(e<sup>−</sup>) = Q / F</strong></p>
+<p>ファラデー定数：<strong>F = 9.65×10<sup>4</sup> C/mol</strong></p>
+</div>
+<h3>6-3. 生成物の物質量・質量・体積</h3>
+<ul>
+<li>半反応式の電子数を見て、<strong>n(生成物)</strong>を求める。</li>
+<li>質量：m = nM</li>
+<li>気体体積（標準状態）：V = 22.4 n（L）</li>
+</ul>
+<figure class="keep-together">
+<img  class="h-6lines" src="assets/1108.png"/>
+<figcaption>図1108　</figcaption>
+</figure>
+<h3>6-4. 典型問題の解き方（型）</h3>
+<ol>
+<li>電流Iと時間tからQを出す（単位注意：分→秒）。</li>
+<li>Q/Fで電子のmol数を出す。</li>
+<li>半反応式の係数比から生成物のmol数へ変換する。</li>
+<li>必要なら質量・体積へ。</li>
+</ol>
+
+<hr/>
+
+</main>
+
+</body>
+</html>

@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>十、酸化還元反応</title>
+<!-- 打印模式识别（学生/教师） -->
+<style>
+  @media print {
+    body:not(.teacher-mode) .teacher-only {
+      display: none !important;
+      visibility: hidden !important;
+    }
+    body.teacher-mode .teacher-only { visibility: visible !important; }
+    body.teacher-mode p.teacher-only,
+    body.teacher-mode div.teacher-only,
+    body.teacher-mode section.teacher-only,
+    body.teacher-mode article.teacher-only,
+    body.teacher-mode table.teacher-only,
+    body.teacher-mode ol.teacher-only,
+    body.teacher-mode ul.teacher-only {
+      display: block !important;
+    }
+    body.teacher-mode li.teacher-only {
+      display: list-item !important;
+    }
+  }
+</style>
+<!-- 页面基础排版 -->
+<style>
+  body {
+    font-family:"Hiragino Kaku Gothic ProN",sans-serif;
+    max-width:900px;
+    margin:0 auto;
+    padding:32px;
+    line-height:1.7;
+    color:#111
+  }
+  h1,h2,h3{margin:16px 0}
+  table{border-collapse:collapse;width:100%;margin:12px 0}
+  td,th{border:1px solid #ddd;padding:6px;vertical-align:top}
+  ol,ul{margin:0 0 12px 24px}
+</style>
+<!-- 色彩主题与打印分页 -->
+<style>
+  :root{
+    --ink:#0f172a;
+    --muted:#475569;
+    --border:#e2e8f0;
+    --bg:#ffffff;
+    --accent:#2563eb;
+  }
+  html,body{background:var(--bg);color:var(--ink);}
+  body{
+    font-family:"Hiragino Kaku Gothic ProN","Noto Sans CJK JP",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+    max-width:900px;
+    margin:0 auto;
+    padding:28px;
+    line-height:1.85
+  }
+  h1{
+    font-size:clamp(24px,3.6vw,34px);
+    margin:0 0 1rem;
+    border-left:6px solid var(--accent);
+    padding-left:12px
+  }
+  h2,h3,h4{
+    margin:1.1rem 0 0.5rem;
+    border-left:4px solid var(--accent);
+    padding-left:10px
+  }
+  body>p:first-of-type{
+    font-size:clamp(22px,3.2vw,30px);
+    font-weight:700;
+    margin:0 0 0.75rem;
+    border-left:6px solid var(--accent);
+    padding-left:12px
+  }
+  p{margin:0 0 0.6rem}
+  ol,ul{margin:0.2rem 0 0.9rem 1.4rem}
+  li{margin:0.25rem 0}
+  table{
+    width:100%;
+    border-collapse:collapse;
+    margin:1rem 0;
+    border:1px solid var(--border)
+  }
+  th,td{
+    border:1px solid var(--border);
+    padding:8px 10px;
+    vertical-align:top
+  }
+  tbody tr:nth-child(even){background:#fbfdff}
+  @media print{
+    @page{size:A4;margin:14mm}
+    body{padding:0}
+    body>p:first-of-type{border-color:#000}
+    h1,h2,h3,h4{border-color:#000}
+    .page-break-start{break-before:page;page-break-before:always;}
+    .page-break-end{break-after:page;page-break-after:always;}
+    .keep-with-next{break-after:avoid;page-break-after:avoid;}
+    .keep-together{break-inside:avoid;page-break-inside:avoid;}
+  }
+</style>
+<link href="../../common/style_base.css" rel="stylesheet"/>
+<script defer="" src="../../common/script.js"></script>
+<style>
+  a { pointer-events:auto; }
+  .teacher-only{display:none;}
+  .teacher-mode .teacher-only{display:block;}
+  .teacher-underline{
+    text-decoration-line:underline;
+    text-decoration-style:wavy;
+    text-decoration-color:#0ea5e9;
+  }
+</style>
+<script>
+  (function(){
+    try{
+      var keys=['teacherMode','teacher.enabled','view-role','role','teacher_mode','ink:role'];
+      keys.forEach(k=>{localStorage.removeItem(k);sessionStorage.removeItem(k);});
+    }catch(e){}
+    document.addEventListener('DOMContentLoaded',function(){
+      document.body.classList.remove('teacher-mode');
+    });
+  })();
+</script>
+<style id="ultimate-print-override">
+@media print {
+  body.print-student .teacher-only {
+    display: none !important;
+    visibility: hidden !important;
+  }
+  body.print-teacher .teacher-only {
+    visibility: visible !important;
+    display: initial !important;
+  }
+  body.print-teacher p.teacher-only,
+  body.print-teacher div.teacher-only,
+  body.print-teacher section.teacher-only,
+  body.print-teacher article.teacher-only,
+  body.print-teacher table.teacher-only,
+  body.print-teacher ol.teacher-only,
+  body.print-teacher ul.teacher-only,
+  body.print-teacher figure.teacher-only {
+    display: block !important;
+  }
+  body.print-teacher li.teacher-only {
+    display: list-item !important;
+  }
+  body.print-teacher span.teacher-only,
+  body.print-teacher a.teacher-only,
+  body.print-teacher em.teacher-only,
+  body.print-teacher strong.teacher-only,
+  body.print-teacher code.teacher-only {
+    display: inline !important;
+  }
+}
+</style>
+<script id="default-student-on-load">
+window.addEventListener("DOMContentLoaded",()=>{
+  document.body.classList.remove("teacher-mode");
+  document.body.classList.add("student");
+});
+</script>
+<style id="line-height-img-tools">
+:root { --lh: 1.85; }
+.h-3lines { height: auto; width: auto; max-height: calc(1em * var(--lh) * 3); }
+.h-6lines { height: auto; width: auto; max-height: calc(1em * var(--lh) * 6); }
+.h-14lines { height: auto; width: auto; max-height: calc(1em * var(--lh) * 14); }
+.fig img { max-width: 100%; height: auto; }
+</style>
+<style>
+:root{--ink:#0f172a;--muted:#475569;--border:#e2e8f0;--bg:#ffffff;--accent:#2563eb;}
+figure{
+  margin:1rem 0;
+  border:1px solid var(--border);
+  padding:10px;
+  border-radius:10px;
+  background:#f8fafc
+}
+figure img{
+  display:block;
+  width:100%;
+  height:auto;
+}
+figcaption{
+  margin-top:6px;
+  color:var(--muted);
+  font-size:0.95rem
+}
+.note{
+  border-left:4px solid var(--accent);
+  background:#f0f7ff;
+  padding:10px 12px;
+  border-radius:8px;
+  margin:10px 0
+}
+hr{
+  border:none;
+  border-top:1px dashed var(--border);
+  margin:24px 0
+}
+h1,h2,h3{clear:both}
+</style>
+<style>
+  /* === 教師向け：学生には空白として見えるメモ === */
+.teacher-note-blank {
+  display: block;
+  margin: 12px 0;
+  position: relative;
+}
+
+/* 教師模式：正常显示文字 */
+.teacher-mode .teacher-note-blank {
+  color: #0f172a !important;
+  height: auto !important;
+  border-bottom: none !important;
+  text-decoration-line:underline;
+}
+
+/* 学生模式：内容隐藏 + 留白 */
+.student .teacher-note-blank {
+  color: transparent !important;   /* 文字不可见 */
+  height: 16em !important;          /* ← 空白高度，可自定义 */
+  border-bottom: 1px dotted #cbd5e1; 
+  margin: 16px 0;
+}
+</style>
+</head>
+<body class="student">
+<header class="site">
+  <div>
+    <strong>酸化還元反応</strong>
+  </div>
+  <div>
+    <button class="btn btn-primary" id="btn-teacher">
+      教師用
+    </button>
+    <button class="btn" id="btn-print">
+      印刷
+    </button>
+  </div>
+</header>
+
+<main>
+
+<h1>十、酸化還元反応</h1>
+
+<h2>一、酸化還元反応</h2>
+
+<h3>1. 定義のまとめ</h3>
+
+<table>
+<tr><th>電子</th><th>酸化数</th><th>働き</th></tr>
+<tr><td>失う</td><td>増加</td><td>還元剤</td></tr>
+<tr><td>得る</td><td>減少</td><td>酸化剤</td></tr>
+</table>
+
+<p><strong>酸化数</strong>：原子の状態を基準にして、授受した電子の数を示す数値。</p>
+
+<h3>2. 酸化数の決め方</h3>
+
+<p><strong>例1：</strong></p>
+<figure>
+  <img src="assets/1001.png"  alt="例1">
+  <figcaption>例1：酸化数</figcaption>
+</figure>
+
+<p><strong>例2：</strong></p>
+<figure>
+  <img src="assets/1002.png"  alt="例2">
+  <figcaption>例2：酸化数の変化</figcaption>
+</figure>
+
+<p><strong>例3：</strong></p>
+<figure>
+  <img src="assets/1003.png" class="h-14lines" alt="例3">
+  <figcaption>例3：酸化数変化の選択</figcaption>
+</figure>
+
+<p><strong>例4：</strong></p>
+<figure>
+  <img src="assets/1004.png" class="h-14lines" alt="例4">
+  <figcaption>例4：酸化される物質</figcaption>
+</figure>
+
+<p><strong>例5：</strong></p>
+<figure>
+  <img src="assets/1005.png" class="h-14lines" alt="例5">
+  <figcaption>例5：酸化還元反応の判定</figcaption>
+</figure>
+
+<hr>
+
+<h3>3. 酸化剤・還元剤</h3>
+
+<p><strong>酸化剤</strong>：酸化力を持ち、相手を酸化する物質。自身は還元される。</p>
+<p><strong>還元剤</strong>：還元力を持ち、相手を還元する物質。自身は酸化される。</p>
+
+<figure>
+  <img src="assets/1006.png" alt="酸化剤還元剤">
+  <figcaption>酸化剤・還元剤の判定</figcaption>
+</figure>
+
+<figure>
+  <img src="assets/1007.png" class="h-14lines" alt="例題">
+  <figcaption>例題：酸化剤・還元剤</figcaption>
+</figure>
+
+<hr>
+
+<h3>4. 酸化還元反応の反応式の作り方</h3>
+
+<h4>(1) 酸化剤の半反応式</h4>
+<figure>
+  <img src="assets/1008.png" class="h-14lines" alt="半反応式 酸化剤">
+  <figcaption>酸化剤の半反応式</figcaption>
+</figure>
+
+<h4>(2) 還元剤の半反応式</h4>
+<figure>
+  <img src="assets/1009.png" class="h-14lines" alt="半反応式 還元剤">
+  <figcaption>還元剤の半反応式</figcaption>
+</figure>
+
+<h4>(3) 全体の反応式</h4>
+
+<p><strong>例1：</strong> 硫酸酸性の KMnO<sub>4</sub> と H<sub>2</sub>O<sub>2</sub></p>
+<div class="teacher-note-blank">
+
+</div>
+<p><strong>例2：</strong> 硫酸酸性の H<sub>2</sub>O<sub>2</sub> と KI</p>
+<div class="teacher-note-blank">
+
+</div>
+
+<figure>
+  <img src="assets/1010.png"  alt="反応式例">
+  <figcaption>反応式の例</figcaption>
+</figure>
+
+<hr>
+
+<h3>5. 酸化還元反応の量的関係（計算）</h3>
+
+<div class="note">
+酸化剤が受け入れる電子の物質量 ＝ 還元剤が放出する電子の物質量
+</div>
+
+<figure>
+  <img src="assets/1011.png"  alt="計算例1">
+  <figcaption>例1：KMnO4 と H2O2</figcaption>
+</figure>
+
+<figure>
+  <img src="assets/1012.png" class="h-14lines" alt="計算例2">
+  <figcaption>例2：滴定計算</figcaption>
+</figure>
+
+<p><strong>例3：</strong><br>
+ある濃度の過酸化水素水に希硫酸を加え、0.040 mol/L の過マンガン酸カリウム水溶液を 15 mL 使用した。
+このとき発生する酸素の体積（標準状態）を求めよ。</p>
+
+</main>
+
+</body>
+</html>
