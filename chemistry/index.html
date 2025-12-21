@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>講義サイト｜学研ラボ｜王</title>
+  <link rel="stylesheet" href="../common/style.css" />
+  <link rel="stylesheet" href="common/style_base.css" />
+  <style>
+    :root{
+      --accent:#2563eb;
+      --ink:#0f172a;
+      --muted:#475569;
+      --card:#ffffff;
+      --shadow:0 18px 45px rgba(15,23,42,0.08);
+      --radius:16px;
+    }
+    body.landing{
+      display:block;
+      min-height:100vh;
+      background:radial-gradient(circle at 20% 20%, rgba(37,99,235,0.08), transparent 30%),
+                 radial-gradient(circle at 80% 0%, rgba(14,165,233,0.08), transparent 28%),
+                 #f6f8fb;
+      color:var(--ink);
+    }
+    .site-main{display:block;padding:0;}
+    .container{max-width:1080px;margin:0 auto;padding:0 24px;}
+    .hero{
+      max-width:1080px;
+      margin:0 auto;
+      padding:48px 24px 32px;
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+    }
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      padding:6px 12px;
+      border-radius:999px;
+      background:#e0edff;
+      color:#1d4ed8;
+      font-weight:700;
+      font-size:0.9rem;
+      width:max-content;
+      letter-spacing:0.01em;
+    }
+    h1{
+      margin:0;
+      font-size:clamp(26px,4vw,34px);
+      letter-spacing:0.01em;
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+    h1 span{
+      font-size:0.9rem;
+      font-weight:600;
+      color:var(--muted);
+    }
+    p.lead{
+      margin:6px 0 0;
+      color:var(--muted);
+      font-size:1.05rem;
+      max-width:720px;
+      line-height:1.7;
+    }
+    .chapters{
+      max-width:1080px;
+      margin:0 auto;
+      padding:16px 24px 48px;
+      display:grid;
+      gap:16px;
+      grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));
+    }
+    .card{
+      position:relative;
+      background:var(--card);
+      border:1px solid rgba(15,23,42,0.05);
+      border-radius:var(--radius);
+      padding:18px 18px 16px;
+      box-shadow:var(--shadow);
+      transition:transform .18s ease, box-shadow .18s ease;
+    }
+    .card:hover{
+      transform:translateY(-3px);
+      box-shadow:0 22px 50px rgba(37,99,235,0.15);
+    }
+    .card .tag{
+      display:inline-block;
+      background:rgba(37,99,235,0.1);
+      color:#1d4ed8;
+      padding:4px 10px;
+      border-radius:999px;
+      font-weight:600;
+      font-size:0.9rem;
+    }
+    .card h3{
+      margin:10px 0 6px;
+      font-size:1.1rem;
+      line-height:1.45;
+    }
+    .card p{
+      margin:0;
+      color:var(--muted);
+      font-size:0.98rem;
+      line-height:1.6;
+    }
+    .card a{
+      position:absolute;
+      inset:0;
+      border-radius:var(--radius);
+      text-indent:-9999px;
+    }
+    .meta{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+    .meta small{
+      color:var(--muted);
+      font-weight:600;
+    }
+    .section-title{
+      max-width:1080px;
+      margin:6px auto 0;
+      padding:0 24px 6px;
+      font-size:1.05rem;
+      letter-spacing:0.02em;
+      color:#334155;
+      display:flex;
+      align-items:center;
+      gap:8px;
+      font-weight:800;
+      text-transform:uppercase;
+    }
+    .section-title::before{
+      content:'';
+      width:14px;
+      height:14px;
+      border-radius:4px;
+      background:linear-gradient(135deg,#2563eb,#22d3ee);
+      box-shadow:0 6px 12px rgba(37,99,235,0.18);
+    }
+    @media (max-width:640px){
+      .hero{padding:36px 18px 20px}
+      .chapters{padding:12px 18px 36px;grid-template-columns:repeat(auto-fit, minmax(220px, 1fr))}
+      .card{padding:16px}
+    }
+  </style>
+</head>
+<body class="student landing">
+  <header class="site-header">
+    <div class="container">
+      <h1>学研ラボ｜王</h1>
+    </div>
+  </header>
+
+  <main class="site-main">
+    <section class="hero">
+      <h1>講義サイト｜学研ラボ｜王 </h1>
+      <p class="lead">章ごとのノートと演習問題を一箇所にまとめました。必要な回を選んで即アクセスできます。スマホでも見やすいレイアウトに調整済みです。</p>
+    </section>
+
+    <h2 class="section-title">基礎コース</h2>
+    <section class="chapters">
+      <article class="card">
+        <span class="tag">第1章</span>
+        <h3>物質の構成と元素</h3>
+        <p>物質の基本構成・分類、元素の日本語表記、混合物と純物質の整理。</p>
+        <a href="chapters/ch01/index.html">第1章へ</a>
+      </article>
+    <article class="card">
+      <span class="tag">第2章</span>
+      <h3>化学結合</h3>
+      <p>金属結合・イオン結合・共有結合、電子式と構造式、分子の形と極性。</p>
+      <a href="chapters/ch02/index.html">第2章へ</a>
+    </article>
+    <article class="card">
+      <span class="tag">第3章</span>
+      <h3>結晶格子</h3>
+      <p>結晶構造の基礎、配位数・単位格子、金属・イオン・共有結合結晶の性質。</p>
+      <a href="chapters/ch03/index.html">第3章へ</a>
+    </article>
+    <article class="card">
+      <span class="tag">第4章</span>
+      <h3>物質量と化学方程式</h3>
+      <p>モル計算、気体・溶液の量的関係、化学反応式の立て方と係数合わせ。</p>
+      <a href="chapters/ch04/index.html">第4章へ</a>
+    </article>
+    <article class="card">
+      <span class="tag">第5章</span>
+      <h3>気体の性質</h3>
+      <p>気体の法則、状態方程式、分圧・湿度の扱いと代表的な気体の実験。</p>
+      <a href="chapters/ch05/index.html">第5章へ</a>
+    </article>
+    <article class="card">
+      <span class="tag">第6章</span>
+      <h3>溶液の性質</h3>
+      <p>濃度の表し方、溶解度と飽和、コロイドと電解質の基本。</p>
+      <a href="chapters/ch06/index.html">第6章へ</a>
+    </article>
+    <article class="card">
+      <span class="tag">第7章</span>
+      <h3>化学反応とエネルギー</h3>
+      <p>反応エンタルピー、エネルギー図、熱化学方程式と計算。</p>
+      <a href="chapters/ch07/index.html">第7章へ</a>
+    </article>
+    <article class="card">
+      <span class="tag">第8章</span>
+      <h3>反応の速さと化学平衡</h3>
+      <p>反応速度、活性化エネルギー、平衡定数とルシャトリエの原理。</p>
+      <a href="chapters/ch08/index.html">第8章へ</a>
+    </article>
+      <article class="card">
+        <span class="tag">第9章</span>
+        <h3>酸・塩基・中和</h3>
+        <p>pH、電離度、滴定曲線、塩の加水分解と緩衝液。</p>
+        <a href="chapters/ch09/index.html">第9章へ</a>
+      </article>
+    </section>
+
+    <h2 class="section-title">進階コース</h2>
+    <section class="chapters">
+      <article class="card">
+        <span class="tag">第10章</span>
+        <h3>酸化還元反応</h3>
+        <p>酸化数の定義、酸化還元剤、イオン反応式と電子収支。</p>
+        <a href="chapters/ch10/index.html">第10章へ</a>
+      </article>
+      <article class="card">
+        <span class="tag">第11章</span>
+        <h3>電池と電気分解</h3>
+        <p>一次電池・二次電池・燃料電池の仕組み、電気分解と法則。</p>
+        <a href="chapters/ch11/index.html">第11章へ</a>
+      </article>
+    </section>
+
+    <h2 class="section-title">補足リソース</h2>
+    <section class="chapters">
+      <article class="card">
+        <span class="tag">補足</span>
+        <h3>有機用語対照表</h3>
+        <p>有機化学の名称・官能基・命名法をまとめた用語対照/翻訳メモ。</p>
+        <a href="organic-glossary.html">用語表へ</a>
+      </article>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      Developed by Z.T. WANG ｜ © 2025 学研ラボ｜王
+    </div>
+  </footer>
+</body>
+</html>

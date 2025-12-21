@@ -1,0 +1,1020 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>有機・官能基・命名・高分子 対照表</title>
+
+  <style>
+    :root{
+      --bg:#f6f7fb;
+      --card:#ffffff;
+      --text:#0f172a;
+      --muted:#64748b;
+      --line:#e2e8f0;
+      --head:#f1f5f9;
+      --accent:#2563eb;
+      --accentSoft:#dbeafe;
+      --good:#16a34a;
+      --goodSoft:#dcfce7;
+      --warn:#b45309;
+      --warnSoft:#ffedd5;
+    }
+
+    /* 最小公用样式（提取自 chemistry/common/style_base.css 与上级 common），保持字体轻量并内联水印/页头页尾 */
+    html,body{background:#f6f8fb;color:#0f172a}
+    body{
+      margin:0;
+      font-family:"Hiragino Kaku Gothic ProN","Noto Sans JP","Noto Sans CJK JP",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      font-weight:400;
+      line-height:1.6;
+      color:var(--text);
+      background:
+        radial-gradient(1200px 600px at 20% 0%, rgba(37,99,235,.10), transparent 60%),
+        radial-gradient(900px 500px at 90% 10%, rgba(22,163,74,.10), transparent 55%),
+        var(--bg);
+    }
+    header.site{
+      position:sticky;top:0;z-index:10;
+      background:#fff;border-bottom:1px solid #e2e8f0;
+      box-shadow:0 2px 10px rgba(15,23,42,.04);
+      padding:10px 24px;
+      display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;
+      margin:0;
+    }
+    header.site .logo{margin:0;font-size:18px;letter-spacing:0.02em;}
+    header.site .tagline{color:#475569;font-size:13px;margin:0;}
+    .site-footer{
+      padding:18px 24px;
+      font-size:13px;
+      color:#475569;
+      border-top:1px solid #e2e8f0;
+      background:#fff;
+      text-align:center;
+    }
+    /* 水印（学生模式） */
+    body.student::before{
+      content:"無断転載禁止\A - WANG -";
+      white-space:pre;
+      position:fixed;
+      top:45%;left:50%;
+      transform:translate(-50%,-50%) rotate(-30deg);
+      font-size:72px;
+      font-weight:700;
+      letter-spacing:6px;
+      font-family:"Hiragino Kaku Gothic ProN","Noto Sans JP","Noto Sans CJK JP",system-ui,-apple-system,sans-serif;
+      color:rgba(0,0,0,0.06);
+      pointer-events:none;
+      z-index:9999;
+    }
+    /* 打印时保留水印/页头页尾 */
+    @media print{
+      header.site{position:static;box-shadow:none;border-bottom:1px solid #000;}
+      .site-footer{border-top:1px solid #000;}
+      body{background:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+      body.student::before{
+        color:rgba(0,0,0,0.08);
+        font-size:64px;
+      }
+      .wrap>header{break-after:avoid;page-break-after:avoid;}
+    }
+
+    *{box-sizing:border-box}
+    .wrap{max-width:1180px; margin:0 auto; padding:28px 16px 64px}
+    .wrap > header{display:flex; gap:16px; align-items:flex-start; justify-content:space-between; margin-bottom:18px;}
+    h1{margin:0; font-size:22px; letter-spacing:.2px;}
+    .subtitle{color:var(--muted); font-size:13px; margin-top:6px;}
+
+    .toolbar{display:flex; gap:10px; align-items:center; flex-wrap:wrap;}
+    .search{
+      display:flex; align-items:center; gap:8px;
+      padding:10px 12px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.9);
+      border-radius:12px;
+      min-width:320px;
+      box-shadow: 0 6px 18px rgba(15,23,42,.06);
+    }
+    .search input{width:100%; border:0; outline:0; background:transparent; color:var(--text); font-size:14px;}
+    .chip{
+      padding:7px 10px;
+      border:1px solid var(--line);
+      background:#fff;
+      border-radius:999px;
+      color:var(--muted);
+      font-size:12px;
+      cursor:pointer;
+      user-select:none;
+      transition:.15s;
+      box-shadow: 0 6px 18px rgba(15,23,42,.05);
+    }
+    .chip.active{
+      color:var(--accent);
+      border-color: rgba(37,99,235,.35);
+      background: var(--accentSoft);
+      box-shadow: 0 0 0 3px rgba(37,99,235,.12);
+    }
+
+    .grid{display:grid; grid-template-columns:1fr; gap:14px;}
+    .card{
+      background: var(--card);
+      border:1px solid var(--line);
+      border-radius:16px;
+      overflow:hidden;
+      box-shadow: 0 14px 30px rgba(15,23,42,.08);
+    }
+    .cardhead{
+      display:flex; align-items:center; justify-content:space-between;
+      padding:14px 16px;
+      border-bottom:1px solid var(--line);
+      background: linear-gradient(180deg, rgba(241,245,249,.95), rgba(255,255,255,.90));
+      gap:10px;
+    }
+    .cardhead h2{margin:0; font-size:15px; letter-spacing:.2px; display:flex; gap:10px; align-items:center;}
+    .badge{
+      font-size:12px; padding:3px 8px; border-radius:999px;
+      border:1px solid rgba(37,99,235,.25);
+      color:rgba(37,99,235,.95);
+      background: rgba(37,99,235,.08);
+    }
+    .cardbody{padding:14px 16px 16px;}
+    .note{color:var(--muted); font-size:12px; margin:0 0 10px;}
+
+    table{
+      width:100%;
+      border-collapse:separate;
+      border-spacing:0;
+      border:1px solid var(--line);
+      border-radius:14px;
+      overflow:hidden;
+      background:#fff;
+    }
+    thead th{
+      text-align:left;
+      font-size:12px;
+      color:#0f172a;
+      background: var(--head);
+      padding:10px 10px;
+      border-bottom:1px solid var(--line);
+      position:sticky; top:0;
+      z-index:1;
+    }
+    tbody td{
+      padding:10px 10px;
+      border-bottom:1px solid var(--line);
+      vertical-align:top;
+      font-size:13px;
+      background:#fff;
+    }
+    tbody tr:last-child td{border-bottom:0;}
+    tbody tr:hover td{ background: rgba(37,99,235,.03); }
+
+    .col-struct{width:140px;}
+    .struct-slot{
+      width:120px; height:72px;
+      border-radius:12px;
+      border:1px dashed rgba(100,116,139,.55);
+      background: #f8fafc;
+      display:flex; align-items:center; justify-content:center;
+      color: rgba(100,116,139,.95);
+      font-size:12px; text-align:center; padding:6px; overflow:hidden;
+    }
+    .struct-slot img{max-width:100%; max-height:100%; display:block;}
+
+    .mono{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace; font-size:12.5px;}
+    .muted{color:var(--muted); font-size:12px;}
+    .jp{font-weight:650;}
+    .pill{
+      display:inline-flex; align-items:center; gap:6px;
+      padding:4px 9px; border-radius:999px;
+      border:1px solid rgba(22,163,74,.25);
+      background: var(--goodSoft);
+      color: rgba(22,163,74,.95);
+      font-size:12px; white-space:nowrap;
+    }
+    .pill2{
+      display:inline-flex; align-items:center; gap:6px;
+      padding:4px 9px; border-radius:999px;
+      border:1px solid rgba(180,83,9,.25);
+      background: var(--warnSoft);
+      color: rgba(180,83,9,.95);
+      font-size:12px; white-space:nowrap;
+    }
+
+    .smallgrid{display:grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap:10px; margin-top:10px;}
+    .mini{
+      padding:10px;
+      border-radius:14px;
+      border:1px solid var(--line);
+      background: #fff;
+      box-shadow: 0 10px 22px rgba(15,23,42,.06);
+    }
+    .mini b{font-size:12px;}
+    .mini div{font-size:12px; color:var(--muted); margin-top:4px;}
+
+    .twoCol{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+    @media (max-width: 860px){
+      .smallgrid{grid-template-columns: repeat(3, minmax(0, 1fr));}
+      .col-struct{width:120px;}
+      .struct-slot{width:104px; height:66px;}
+      header{flex-direction:column; align-items:stretch;}
+      .search{min-width:0; width:100%;}
+      .toolbar{justify-content:space-between;}
+      .twoCol{grid-template-columns:1fr;}
+    }
+
+    @media print{
+      body{ background:#fff; }
+      header, .toolbar{ display:none !important; }
+      .wrap{ max-width:none; padding:0; }
+      .card{ box-shadow:none; }
+      tbody tr:hover td{ background:#fff; }
+      thead th{ position:static; }
+    }
+  </style>
+</head>
+
+<body class="student">
+<header class="site">
+  <div>
+    <h1 class="logo">学研ラボ｜王</h1>
+    <p class="tagline">有機化学 系統対照表</p>
+  </div>
+  <div class="tagline">Developed by Z.T. WANG ｜ © 2025 学研ラボ｜王</div>
+</header>
+
+<div class="wrap">
+  <header>
+    <div>
+      <h1>有機化学 系統対照表</h1>
+      <div class="subtitle"></div>
+    </div>
+    <div class="toolbar">
+      <div class="search">
+        <span class="muted">🔎</span>
+        <input id="q" placeholder="検索：アセチルサリチル酸 / クメン / ナイロン66 / o-キシレン ..." />
+      </div>
+      <div class="chip active" data-filter="all">全体</div>
+      <div class="chip" data-filter="fg">官能基</div>
+      <div class="chip" data-filter="hc">炭化水素</div>
+      <div class="chip" data-filter="sub">置換基</div>
+      <div class="chip" data-filter="comp">脂肪族化合物</div>
+      <div class="chip" data-filter="ar">芳香族</div>
+      <div class="chip" data-filter="poly">高分子関係</div>
+    </div>
+  </header>
+
+  <div class="grid" id="sections">
+
+    
+    <section class="card" data-sec="all">
+      <div class="cardhead">
+        <h2>数詞接頭辞<span class="badge">基本</span></h2>
+        <span class="muted">モノ / ジ / トリ / テトラ / ペンタ / ヘキサ</span>
+      </div>
+      <div class="cardbody">
+        <div class="smallgrid">
+          <div class="mini"><b>1</b><div>モノ</div></div>
+          <div class="mini"><b>2</b><div>ジ</div></div>
+          <div class="mini"><b>3</b><div>トリ</div></div>
+          <div class="mini"><b>4</b><div>テトラ</div></div>
+          <div class="mini"><b>5</b><div>ペンタ</div></div>
+          <div class="mini"><b>6</b><div>ヘキサ</div></div>
+        </div>
+      </div>
+    </section>
+
+    
+    <section class="card" data-sec="fg">
+      <div class="cardhead">
+        <h2>官能基一覧 <span class="badge">Functional Groups</span></h2>
+        <span class="muted">名称｜分類｜一般式</span>
+      </div>
+      <div class="cardbody">
+        <table>
+          <thead>
+            <tr>
+              <th>官能基名</th><th>分類</th><th>一般式</th>
+              <th>官能基名</th><th>分類</th><th>一般式</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="jp">ヒドロキ基</td><td>アルコール / フェノール類</td><td class="mono">R–OH</td>
+              <td class="jp">エーテル結合</td><td>エーテル</td><td class="mono">R₁–O–R₂</td>
+            </tr>
+            <tr>
+              <td class="jp">カルボニル基</td><td class="muted">—</td><td class="mono">C=O</td>
+              <td class="jp">アルデヒド基</td><td>アルデヒド</td><td class="mono">R–CHO</td>
+            </tr>
+            <tr>
+              <td class="jp">ケトン基</td><td>ケトン</td><td class="mono">R₁–CO–R₂</td>
+              <td class="jp">カルボキシ基</td><td>カルボン酸</td><td class="mono">R–COOH</td>
+            </tr>
+            <tr>
+              <td class="jp">エステル結合</td><td>エステル</td><td class="mono">R₁–COO–R₂</td>
+              <td class="jp">ニトロ基</td><td>ニトロ化合物</td><td class="mono">R–NO₂</td>
+            </tr>
+            <tr>
+              <td class="jp">アミノ基</td><td>アミン</td><td class="mono">R–NH₂</td>
+              <td class="jp">スルホ基</td><td>スルホン酸</td><td class="mono">R–SO₃H</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    
+    <section class="card" data-sec="hc">
+      <div class="cardhead">
+        <h2>炭化水素<span class="badge">Grouped</span></h2>
+        <span class="muted">C2 / C3 / C4... 横向对照</span>
+      </div>
+      <div class="cardbody">
+        <table>
+          <thead>
+            <tr>
+              <th style="width:70px;">炭素数</th>
+              <th>アルカン</th>
+              <th>アルケン</th>
+              <th>アルキン</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="mono">C1</td>
+              <td><span class="mono">CH₄</span>　<span class="jp">メタン</span></td>
+              <td class="muted">—</td>
+              <td class="muted">—</td>
+            </tr>
+            <tr>
+              <td class="mono">C2</td>
+              <td><span class="mono">C₂H₆</span>　<span class="jp">エタン</span></td>
+              <td><span class="mono">C₂H₄</span>　<span class="jp">エテン</span> <span class="muted"></span></td>
+              <td><span class="mono">C₂H₂</span>　<span class="jp">エチン</span> <span class="muted"></span></td>
+            </tr>
+            <tr>
+              <td class="mono">C3</td>
+              <td><span class="mono">C₃H₈</span>　<span class="jp">プロパン</span></td>
+              <td><span class="mono">C₃H₆</span>　<span class="jp">プロペン</span> <span class="muted"></span></td>
+              <td><span class="mono">C₃H₄</span>　<span class="jp">プロピン</span></td>
+            </tr>
+            <tr>
+              <td class="mono">C4</td>
+              <td><span class="mono">C₄H₁₀</span>　<span class="jp">ブタン</span></td>
+              <td><span class="mono">C₄H₈</span>　<span class="jp">ブテン</span></td>
+              <td><span class="mono">C₄H₆</span>　<span class="jp">ブチン</span></td>
+            </tr>
+            <tr>
+              <td class="mono">C5</td>
+              <td><span class="mono">C₅H₁₂</span>　<span class="jp">ペンタン</span></td>
+              <td><span class="mono">C₅H₁₀</span>　<span class="jp">ペンテン</span></td>
+              <td><span class="mono">C₅H₈</span>　<span class="jp">ペンチン</span></td>
+            </tr>
+            <tr>
+              <td class="mono">C6</td>
+              <td><span class="mono">C₆H₁₄</span>　<span class="jp">ヘキサン</span></td>
+              <td><span class="mono">C₆H₁₂</span>　<span class="jp">ヘキセン</span></td>
+              <td><span class="mono">C₆H₁₀</span>　<span class="jp">ヘキシン</span></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p class="note" style="margin-top:10px;">環状：</p>
+        <table>
+          <thead>
+            <tr>
+              <th class="col-struct">構造式</th>
+              <th>分子式</th>
+              <th>名称</th>
+              <th>備考</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><div class="struct-slot">&nbsp;</div></td><td class="mono">C₆H₁₂</td><td class="jp">シクロヘキサン</td><td class="muted">—</td></tr>
+            <tr><td><div class="struct-slot">&nbsp;</div></td><td class="mono">C₆H₁₀</td><td class="jp">シクロヘキセン</td><td class="muted">—</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    
+    <section class="card" data-sec="sub">
+      <div class="cardhead">
+        <h2>置換基 / その他の基 <span class="badge">Substituents</span></h2>
+        <span class="muted">1ページ下部メモ + 追加分</span>
+      </div>
+      <div class="cardbody">
+        <table>
+          <thead>
+            <tr>
+              <th class="col-struct">構造式</th><th>名称</th><th>よく使う表記</th>
+              <th class="col-struct">構造式</th><th>名称</th><th>よく使う表記</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><div class="struct-slot">&nbsp;</div></td><td class="jp">メチル基</td><td class="mono">–CH₃</td>
+              <td><div class="struct-slot">&nbsp;</div></td><td class="jp">エチル基</td><td class="mono">–C₂H₅</td>
+            </tr>
+            <tr>
+              <td><div class="struct-slot">&nbsp;</div></td><td class="jp">プロピル基</td><td class="mono">–CH₂CH₂CH₃</td>
+              <td><div class="struct-slot">&nbsp;</div></td><td class="jp">イソプロピル基</td><td class="mono">–CH(CH₃)₂</td>
+            </tr>
+            <tr>
+              <td><div class="struct-slot">&nbsp;</div></td><td class="jp">n-ブチル基</td><td class="mono">–CH₂CH₂CH₂CH₃</td>
+              <td><div class="struct-slot">&nbsp;</div></td><td class="jp">イソブチル基</td><td class="mono">–CH₂CH(CH₃)₂</td>
+            </tr>
+            <tr>
+              <td><div class="struct-slot">&nbsp;</div></td><td class="jp">sec-ブチル基</td><td class="mono">–CH(CH₃)CH₂CH₃</td>
+              <td><div class="struct-slot">&nbsp;</div></td><td class="jp">t-ブチル基</td><td class="mono">–C(CH₃)₃</td>
+            </tr>
+            <tr>
+              <td><div class="struct-slot">&nbsp;</div></td><td class="jp">クロロ</td><td class="mono">–Cl</td>
+              <td><div class="struct-slot">&nbsp;</div></td><td class="jp">ブロモ</td><td class="mono">–Br</td>
+            </tr>
+            <tr>
+              <td><div class="struct-slot">&nbsp;</div></td><td class="jp">ヨード</td><td class="mono">–I</td>
+              <td><div class="struct-slot">&nbsp;</div></td><td class="jp">ビニル基</td><td class="mono">–CH=CH₂</td>
+            </tr>
+            <tr>
+              <td><div class="struct-slot">&nbsp;</div></td><td class="jp">アセチル基</td><td class="mono">–COCH₃</td>
+              <td><div class="struct-slot">&nbsp;</div></td><td class="jp">アミド結合</td><td class="mono">–CONH–</td>
+            </tr>
+            <tr>
+              <td><div class="struct-slot">&nbsp;</div></td><td class="jp">アゾ基</td><td class="mono">–N=N–</td>
+              <td><div class="struct-slot">&nbsp;</div></td><td class="jp">フェニル基</td><td class="mono">–C₆H₅</td>
+            </tr>
+            <tr>
+              <td><div class="struct-slot">&nbsp;</div></td><td class="jp">ベンジル基</td><td class="mono">–CH₂–C₆H₅</td>
+              <td><div class="struct-slot">&nbsp;</div></td><td class="muted">—</td><td class="muted">—</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    
+    <section class="card" data-sec="comp">
+      <div class="cardhead">
+        <h2>具体化合物<span class="badge">Compounds</span></h2>
+        <span class="muted">シリーズ別に整理</span>
+      </div>
+      <div class="cardbody">
+
+        
+        <p class="note"><span class="pill">シリーズ</span> ハロメタン：</p>
+        <table>
+          <thead>
+            <tr>
+              <th>化学式</th><th>名称</th>
+              <th>化学式</th><th>名称</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="mono">CH₃Cl</td><td class="jp">クロロメタン</td>
+              <td class="mono">CH₂Cl₂</td><td class="jp">ジクロロメタン</td>
+            </tr>
+            <tr>
+              <td class="mono">CCl₄</td><td class="jp">テトラクロロメタン</td>
+              <td class="muted">—</td><td class="muted">—</td>
+            </tr>
+          </tbody>
+        </table>
+
+        
+        <p class="note" style="margin-top:12px;"><span class="pill">シリーズ</span> ビニル系：</p>
+        <table>
+          <thead>
+            <tr>
+              <th>化学式</th><th>名称</th>
+              <th>化学式</th><th>名称</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="mono">CH₂=CH–Cl</td><td class="jp">塩化ビニル</td>
+              <td class="mono">CH₂=CH–OCOCH₃</td><td class="jp">酢酸ビニル</td>
+            </tr>
+            <tr>
+              <td class="mono">CH₂=CH–CN</td><td class="jp">アクリロニトリル</td>
+              <td class="muted">—</td><td class="muted">—</td>
+            </tr>
+          </tbody>
+        </table>
+
+        
+        <p class="note" style="margin-top:12px;"><span class="pill">シリーズ</span> アルコール：</p>
+        <table>
+          <thead>
+            <tr>
+              <th>化学式</th><th>名称</th>
+              <th>化学式</th><th>名称</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="mono">CH₃OH</td><td class="jp">メタノール</td>
+              <td class="mono">C₂H₅OH</td><td class="jp">エタノール</td>
+            </tr>
+            <tr>
+              <td class="mono">CH₃CH₂CH₂OH</td><td class="jp">1-プロパノール</td>
+              <td class="mono">CH₃CHOHCH₃</td><td class="jp">2-プロパノール</td>
+            </tr>
+          </tbody>
+        </table>
+
+        
+        <p class="note" style="margin-top:12px;"><span class="pill">シリーズ</span> エーテル：</p>
+        <table>
+          <thead>
+            <tr>
+              <th>化学式</th><th>名称</th>
+              <th>化学式</th><th>名称</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="mono">CH₃–O–CH₃</td><td class="jp">ジメチルエーテル</td>
+              <td class="mono">C₂H₅–O–C₂H₅</td><td class="jp">ジエチルエーテル</td>
+            </tr>
+          </tbody>
+        </table>
+
+        
+        <p class="note" style="margin-top:12px;"><span class="pill2">重要</span> アルコキシド：</p>
+        <table>
+          <thead>
+            <tr>
+              <th>化学式</th><th>名称</th>
+              <th>化学式</th><th>名称</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="mono">R–ONa</td><td class="jp">ナトリウムアルコキシド</td>
+              <td class="mono">C₂H₅ONa</td><td class="jp">ナトリウムエトキシド</td>
+            </tr>
+          </tbody>
+        </table>
+
+        
+        <p class="note" style="margin-top:12px;"><span class="pill">シリーズ</span> 多価アルコール：</p>
+        <table>
+          <thead>
+            <tr>
+              <th>化学式</th><th>名称</th>
+              <th>化学式</th><th>名称</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="mono">HO–CH₂–CH₂–OH</td><td class="jp">エチレングリコール</td>
+              <td class="mono">HO–CH₂–CH(OH)–CH₂–OH</td><td class="jp">グリセリン</td>
+            </tr>
+          </tbody>
+        </table>
+
+        
+        <p class="note" style="margin-top:12px;"><span class="pill">シリーズ</span> アルデヒド / ケトン：</p>
+        <table>
+          <thead>
+            <tr>
+              <th>化学式</th><th>名称</th>
+              <th>化学式</th><th>名称</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="mono">HCHO</td><td class="jp">ホルムアルデヒド</td>
+              <td class="mono">CH₃CHO</td><td class="jp">アセトアルデヒド</td>
+            </tr>
+            <tr>
+              <td class="mono">CH₃COCH₃</td><td class="jp">アセトン</td>
+              <td class="muted">—</td><td class="muted">—</td>
+            </tr>
+          </tbody>
+        </table>
+
+        
+        <p class="note" style="margin-top:12px;"><span class="pill2">その他</span> そのほか：</p>
+        <table>
+          <thead>
+            <tr>
+              <th>化学式</th><th>名称</th>
+              <th>化学式</th><th>名称</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="mono">CHI₃</td><td class="jp">ヨードホルム</td>
+              <td class="muted">—</td><td class="muted">—</td>
+            </tr>
+          </tbody>
+        </table>
+
+        
+        <p class="note" style="margin-top:12px;"><span class="pill">シリーズ</span> カルボン酸：</p>
+        <table>
+          <thead>
+            <tr>
+              <th class="col-struct">構造式</th><th>化学式</th><th>名称</th><th>系統名</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><div class="struct-slot">&nbsp;</div></td><td class="mono">HCOOH</td><td class="jp">ギ酸</td><td class="mono">メタン酸 (methanoic acid)</td></tr>
+            <tr><td><div class="struct-slot">&nbsp;</div></td><td class="mono">CH₃COOH</td><td class="jp">酢酸</td><td class="mono">エタン酸 (ethanoic acid)</td></tr>
+            <tr><td><div class="struct-slot">&nbsp;</div></td><td class="mono">HOOC–COOH</td><td class="jp">シュウ酸</td><td class="mono">エタン二酸 (oxalic acid)</td></tr>
+            <tr><td><div class="struct-slot">&nbsp;</div></td><td class="mono">HOOC–CH=CH–COOH</td><td class="jp">マレイン酸</td><td class="mono">cis-ブテン二酸 (cis-butenedioic acid)</td></tr>
+            <tr><td><div class="struct-slot">&nbsp;</div></td><td class="mono">HOOC–CH=CH–COOH</td><td class="jp">フマル酸</td><td class="mono">trans-ブテン二酸 (trans-butenedioic acid)</td></tr>
+            <tr><td><div class="struct-slot">&nbsp;</div></td><td class="mono">CH₃CH(OH)COOH</td><td class="jp">乳酸</td><td class="mono">2-ヒドロキシプロパン酸</td></tr>
+            <tr><td><div class="struct-slot">&nbsp;</div></td><td class="mono">HOOC–(CH₂)₄–COOH</td><td class="jp">アジピン酸</td><td class="mono">ヘキサン二酸 (hexanedioic acid)</td></tr>
+          </tbody>
+        </table>
+
+        
+        <p class="note" style="margin-top:12px;"><span class="pill">シリーズ</span> エステル：</p>
+        <table>
+          <thead>
+            <tr>
+              <th>化学式</th><th>名称</th>
+              <th>化学式</th><th>名称</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="mono">CH₃COOC₂H₅</td><td class="jp">酢酸エチル</td>
+              <td class="muted">—</td><td class="muted">—</td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+    </section>
+
+    
+    <section class="card" data-sec="ar">
+      <div class="cardhead">
+        <h2>芳香族<span class="badge">Aromatics</span></h2>
+        <span class="muted">2ページ + 3ページ</span>
+      </div>
+      <div class="cardbody">
+
+        <p class="note"><span class="pill">基本</span> 代表性芳香族：</p>
+        <table>
+          <thead>
+            <tr>
+              <th class="col-struct">構造式</th><th>名称</th>
+              <th class="col-struct">構造式</th><th>名称</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><div class="struct-slot">&nbsp;</div></td><td class="jp">ベンゼン</td>
+              <td><div class="struct-slot">&nbsp;</div></td><td class="jp">クロロベンゼン</td>
+            </tr>
+            <tr>
+              <td><div class="struct-slot">&nbsp;</div></td><td class="jp">ニトロベンゼン</td>
+              <td><div class="struct-slot">&nbsp;</div></td><td class="jp">ベンゼンスルホン酸</td>
+            </tr>
+            <tr>
+              <td><div class="struct-slot">&nbsp;</div></td><td class="jp">トルエン</td>
+              <td><div class="struct-slot">&nbsp;</div></td><td class="jp">エチルベンゼン</td>
+            </tr>
+            <tr>
+              <td><div class="struct-slot">&nbsp;</div></td><td class="jp">スチレン</td>
+              <td><div class="struct-slot">&nbsp;</div></td><td class="jp">ナフタレン</td>
+            </tr>
+            <tr>
+              <td><div class="struct-slot">&nbsp;</div></td><td class="jp">ヘキサクロロシクロヘキサン</td>
+              <td><div class="struct-slot">&nbsp;</div></td><td class="muted">—</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="twoCol" style="margin-top:12px;">
+          <div>
+            <p class="note"><span class="pill">o/m/p</span> キシレン：</p>
+            <table>
+              <thead>
+                <tr><th>系列</th><th class="col-struct">o-</th><th class="col-struct">m-</th><th class="col-struct">p-</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="jp">キシレン</td>
+                  <td><div class="struct-slot">&nbsp;</div><div class="mono">o-キシレン</div></td>
+                  <td><div class="struct-slot">&nbsp;</div><div class="mono">m-キシレン</div></td>
+                  <td><div class="struct-slot">&nbsp;</div><div class="mono">p-キシレン</div></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div>
+            <p class="note"><span class="pill">o/m/p</span> クレゾール：</p>
+            <table>
+              <thead>
+                <tr><th>系列</th><th class="col-struct">o-</th><th class="col-struct">m-</th><th class="col-struct">p-</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="jp">クレゾール</td>
+                  <td><div class="struct-slot">&nbsp;</div><div class="mono">o-クレゾール</div></td>
+                  <td><div class="struct-slot">&nbsp;</div><div class="mono">m-クレゾール</div></td>
+                  <td><div class="struct-slot">&nbsp;</div><div class="mono">p-クレゾール</div></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <p class="note" style="margin-top:12px;"><span class="pill">o/m/p</span> フタル酸系：</p>
+        <table>
+          <thead><tr><th>系列</th><th class="col-struct">o-</th><th class="col-struct">m-</th><th class="col-struct">p-</th></tr></thead>
+          <tbody>
+            <tr>
+              <td class="jp">ベンゼンジカルボン酸</td>
+              <td><div class="struct-slot">&nbsp;</div><div class="mono">フタル酸</div></td>
+              <td><div class="struct-slot">&nbsp;</div><div class="mono">イソフタル酸</div></td>
+              <td><div class="struct-slot">&nbsp;</div><div class="mono">テレフタル酸</div></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p class="note" style="margin-top:12px;"><span class="pill2">フェノール系</span>：</p>
+        <table>
+          <thead>
+            <tr>
+              <th class="col-struct">構造式</th><th>名称</th><th>備考</th>
+              <th class="col-struct">構造式</th><th>名称</th><th>備考</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><div class="struct-slot">&nbsp;</div></td><td class="jp">フェノール</td><td class="muted">—</td>
+              <td><div class="struct-slot">&nbsp;</div></td><td class="jp">ナトリウムフェノキシド</td><td class="muted">—</td>
+            </tr>
+            <tr>
+              <td><div class="struct-slot">&nbsp;</div></td><td class="jp">2,4,6-トリブロモフェノール</td><td class="muted">—</td>
+              <td><div class="struct-slot">&nbsp;</div></td><td class="jp">2,4,6-トリニトロフェノール</td><td class="muted"></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p class="note" style="margin-top:12px;"><span class="pill2">爆薬/强取代</span>：</p>
+        <table>
+          <thead><tr><th class="col-struct">構造式</th><th>名称</th><th>備考</th></tr></thead>
+          <tbody>
+            <tr><td><div class="struct-slot">&nbsp;</div></td><td class="jp">2,4,6-トリニトロトルエン</td><td class="muted"></td></tr>
+          </tbody>
+        </table>
+
+        <p class="note" style="margin-top:12px;"><span class="pill">アルデヒド/酸/アルコール</span> 芳香族側鎖：</p>
+        <table>
+          <thead>
+            <tr>
+              <th class="col-struct">構造式</th><th>名称</th><th>備考</th>
+              <th class="col-struct">構造式</th><th>名称</th><th>備考</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><div class="struct-slot">&nbsp;</div></td><td class="jp">ベンズアルデヒド</td><td class="muted">—</td>
+              <td><div class="struct-slot">&nbsp;</div></td><td class="jp">安息香酸</td><td class="muted">—</td>
+            </tr>
+            <tr>
+              <td><div class="struct-slot">&nbsp;</div></td><td class="jp">ベンジルアルコール</td><td class="muted">—</td>
+              <td><div class="struct-slot">&nbsp;</div></td><td class="muted">—</td><td class="muted">—</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p class="note" style="margin-top:12px;"><span class="pill">3ページ：薬品/エステル/酸</span>：</p>
+        <table>
+          <thead>
+            <tr>
+              <th class="col-struct">構造式</th><th>名称</th><th>備考</th>
+              <th class="col-struct">構造式</th><th>名称</th><th>備考</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><div class="struct-slot">&nbsp;</div></td><td class="jp">酢酸フェニル</td><td class="muted">—</td>
+              <td><div class="struct-slot">&nbsp;</div></td><td class="jp">サリチル酸</td><td class="muted">—</td>
+            </tr>
+            <tr>
+              <td><div class="struct-slot">&nbsp;</div></td><td class="jp">サリチル酸メチル</td><td class="muted">—</td>
+              <td><div class="struct-slot">&nbsp;</div></td><td class="jp">アセチルサリチル酸</td><td class="muted"></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p class="note" style="margin-top:12px;"><span class="pill2">3ページ：芳香族プロセス/中間体</span>：</p>
+        <table>
+          <thead>
+            <tr>
+              <th class="col-struct">構造式</th><th>名称</th><th>備考</th>
+              <th class="col-struct">構造式</th><th>名称</th><th>備考</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><div class="struct-slot">&nbsp;</div></td><td class="jp">クメン</td><td class="muted">—</td>
+              <td><div class="struct-slot">&nbsp;</div></td><td class="jp">クメンヒドロペルオキシド</td><td class="muted">—</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p class="note" style="margin-top:12px;"><span class="pill2">3ページ：アニリン/ジアゾ/アゾ</span>：</p>
+        <table>
+          <thead>
+            <tr>
+              <th class="col-struct">構造式</th><th>名称</th><th>備考</th>
+              <th class="col-struct">構造式</th><th>名称</th><th>備考</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><div class="struct-slot">&nbsp;</div></td><td class="jp">アニリン</td><td class="muted">—</td>
+              <td><div class="struct-slot">&nbsp;</div></td><td class="jp">アニリン塩酸塩</td><td class="muted">—</td>
+            </tr>
+            <tr>
+              <td><div class="struct-slot">&nbsp;</div></td><td class="jp">アセトアニリド</td><td class="muted">—</td>
+              <td><div class="struct-slot">&nbsp;</div></td><td class="jp">塩化ベンゼンジアゾニウム</td><td class="muted">—</td>
+            </tr>
+            <tr>
+              <td><div class="struct-slot">&nbsp;</div></td><td class="jp">p-ヒドロキシアゾベンゼン</td><td class="muted"></td>
+              <td><div class="struct-slot">&nbsp;</div></td><td class="muted">—</td><td class="muted">—</td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+    </section>
+
+    
+    <section class="card" data-sec="poly">
+      <div class="cardhead">
+        <h2>高分子関係<span class="badge">Polymers</span></h2>
+        <span class="muted">ゴム/繊維/樹脂/エンプラ + 関連モノマー</span>
+      </div>
+      <div class="cardbody">
+
+        <p class="note"><span class="pill">モノマー</span>：</p>
+        <table>
+          <thead>
+            <tr>
+              <th class="col-struct">構造式</th><th>名称</th><th>備考</th><th>構造式（式）</th>
+              <th class="col-struct">構造式</th><th>名称</th><th>備考</th><th>構造式（式）</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><div class="struct-slot">&nbsp;</div></td><td class="jp">メタクリル酸メチル</td><td class="muted">モノマー</td><td class="mono">CH₂=C(CH₃)COOCH₃</td>
+              <td><div class="struct-slot">&nbsp;</div></td><td class="jp">アクリル酸</td><td class="muted">モノマー</td><td class="mono">CH₂=CH–COOH</td>
+            </tr>
+            <tr>
+              <td><div class="struct-slot">&nbsp;</div></td><td class="jp">イソプレン</td><td class="muted">モノマー</td><td class="mono">CH₂=C(CH₃)–CH=CH₂</td>
+              <td><div class="struct-slot">&nbsp;</div></td><td class="jp">1,3-ブタジエン</td><td class="muted">モノマー</td><td class="mono">CH₂=CH–CH=CH₂</td>
+            </tr>
+            <tr>
+              <td><div class="struct-slot">&nbsp;</div></td><td class="jp">クロロプレン</td><td class="muted">モノマー</td><td class="mono">CH₂=CCl–CH=CH₂</td>
+              <td><div class="struct-slot">&nbsp;</div></td><td class="muted">—</td><td class="muted">—</td><td class="muted">—</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p class="note" style="margin-top:12px;"><span class="pill2">ゴム</span>：</p>
+        <table>
+          <thead>
+            <tr>
+              <th class="col-struct">構造式</th><th>名称</th><th>備考</th>
+              <th class="col-struct">構造式</th><th>名称</th><th>備考</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><div class="struct-slot">&nbsp;</div></td><td class="jp">生ゴム</td><td class="muted">天然ゴム</td>
+              <td><div class="struct-slot">&nbsp;</div></td><td class="jp">クロロプレンゴム</td><td class="muted">—</td>
+            </tr>
+            <tr>
+              <td><div class="struct-slot">&nbsp;</div></td><td class="jp">ブタジエンゴム</td><td class="muted">—</td>
+              <td><div class="struct-slot">&nbsp;</div></td><td class="muted">—</td><td class="muted">—</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p class="note" style="margin-top:12px;"><span class="pill">ポリアミド</span>：</p>
+        <table>
+          <thead>
+            <tr>
+              <th class="col-struct">構造式</th><th>名称</th><th>備考</th><th>略称/要点</th>
+              <th class="col-struct">構造式</th><th>名称</th><th>備考</th><th>略称/要点</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><div class="struct-slot">&nbsp;</div></td><td class="jp">ヘキサメチレンジアミン</td><td class="muted">ナイロン66原料</td><td class="mono">H₂N-(CH₂)₆-NH₂</td>
+              <td><div class="struct-slot">&nbsp;</div></td><td class="jp">ε-カプロラクタム</td><td class="muted">ナイロン6原料</td><td class="mono">ラクタム</td>
+            </tr>
+            <tr>
+              <td><div class="struct-slot">&nbsp;</div></td><td class="jp">ナイロン6</td><td class="muted">—</td><td class="mono">ポリアミド</td>
+              <td><div class="struct-slot">&nbsp;</div></td><td class="jp">ナイロン66</td><td class="muted">—</td><td class="mono">ポリアミド</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p class="note" style="margin-top:12px;"><span class="pill">ポリエステル/その他</span>：</p>
+        <table>
+          <thead>
+            <tr>
+              <th class="col-struct">構造式</th><th>名称</th><th>備考</th><th>略称</th>
+              <th class="col-struct">構造式</th><th>名称</th><th>備考</th><th>略称</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><div class="struct-slot">&nbsp;</div></td><td class="jp">ポリエチレンテレフタラート</td><td class="muted">—</td><td class="mono">PET</td>
+              <td><div class="struct-slot">&nbsp;</div></td><td class="jp">ポリビニルアルコール</td><td class="muted">—</td><td class="mono">PVA</td>
+            </tr>
+            <tr>
+              <td><div class="struct-slot">&nbsp;</div></td><td class="jp">ポリ乳酸</td><td class="muted">—</td><td class="mono">PLA</td>
+              <td><div class="struct-slot">&nbsp;</div></td><td class="muted">—</td><td class="muted">—</td><td class="muted">—</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p class="note" style="margin-top:12px;"><span class="pill">樹脂</span>：</p>
+        <table>
+          <thead>
+            <tr>
+              <th class="col-struct">構造式</th><th>名称</th><th>備考</th><th>要点</th>
+              <th class="col-struct">構造式</th><th>名称</th><th>備考</th><th>要点</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><div class="struct-slot">&nbsp;</div></td><td class="jp">フェノール樹脂</td><td class="muted">—</td><td class="mono">熱硬化性</td>
+              <td><div class="struct-slot">&nbsp;</div></td><td class="jp">尿素樹脂</td><td class="muted">—</td><td class="mono">熱硬化性</td>
+            </tr>
+            <tr>
+              <td><div class="struct-slot">&nbsp;</div></td><td class="jp">メラミン樹脂</td><td class="muted">—</td><td class="mono">熱硬化性</td>
+              <td><div class="struct-slot">&nbsp;</div></td><td class="muted">—</td><td class="muted">—</td><td class="muted">—</td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+    </section>
+
+  </div>
+
+</div>
+
+<script>
+  const q = document.getElementById('q');
+  const chips = Array.from(document.querySelectorAll('.chip'));
+  const sections = Array.from(document.querySelectorAll('#sections > section'));
+  let filter = 'all';
+
+  function apply(){
+    const term = (q.value || '').trim().toLowerCase();
+    sections.forEach(sec=>{
+      const secType = sec.getAttribute('data-sec') || 'all';
+      const okFilter = (filter === 'all') || (secType === filter);
+      const rows = Array.from(sec.querySelectorAll('tbody tr, .mini'));
+      let visible = 0;
+
+      rows.forEach(r=>{
+        if(term){
+          const hit = r.innerText.toLowerCase().includes(term);
+          r.style.display = hit ? '' : 'none';
+          if(hit) visible++;
+        }else{
+          r.style.display = '';
+          visible++;
+        }
+      });
+
+      // 隐藏空表格，避免只有表头留白
+      Array.from(sec.querySelectorAll('table')).forEach(t=>{
+        const bodyRows = Array.from(t.querySelectorAll('tbody tr')).filter(tr=>tr.style.display!=='none');
+        t.style.display = bodyRows.length ? '' : 'none';
+      });
+
+      sec.style.display = (okFilter && (!term || visible>0)) ? '' : 'none';
+    });
+  }
+  chips.forEach(c=>{
+    c.addEventListener('click', ()=>{
+      chips.forEach(x=>x.classList.remove('active'));
+      c.classList.add('active');
+      filter = c.getAttribute('data-filter');
+      apply();
+    });
+  });
+  q.addEventListener('input', apply);
+</script>
+</body>
+</html>
