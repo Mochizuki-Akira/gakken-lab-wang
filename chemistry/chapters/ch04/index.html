@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>四、物質量と化学反応式</title>
+<!-- 打印模式识别（学生/教师） -->
+<style>
+  @media print {
+    body:not(.teacher-mode) .teacher-only { display: none !important; visibility: hidden !important; }
+    body.teacher-mode .teacher-only { visibility: visible !important; }
+    body.teacher-mode p.teacher-only,
+    body.teacher-mode div.teacher-only,
+    body.teacher-mode section.teacher-only,
+    body.teacher-mode article.teacher-only,
+    body.teacher-mode table.teacher-only,
+    body.teacher-mode ol.teacher-only,
+    body.teacher-mode ul.teacher-only { display: block !important; }
+    body.teacher-mode li.teacher-only { display: list-item !important; }
+  }
+</style>
+<!-- 页面基础排版 -->
+<style>
+  body {
+    font-family:"Hiragino Kaku Gothic ProN",sans-serif;
+    max-width:900px;
+    margin:0 auto;
+    padding:32px;
+    line-height:1.7;
+    color:#111
+  }
+  h1,h2,h3{margin:16px 0}
+  table{border-collapse:collapse;width:100%;margin:12px 0}
+  td,th{border:1px solid #ddd;padding:6px;vertical-align:top}
+  ol,ul{margin:0 0 12px 24px}
+</style>
+<!-- 色彩主题与打印分页 -->
+<style>
+  :root{
+    --ink:#0f172a;
+    --muted:#475569;
+    --border:#e2e8f0;
+    --bg:#ffffff;
+    --accent:#2563eb;
+  }
+  html,body{background:var(--bg);color:var(--ink);}
+  body{
+    font-family:"Hiragino Kaku Gothic ProN","Noto Sans CJK JP",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+    max-width:900px;
+    margin:0 auto;
+    padding:28px;
+    line-height:1.85
+  }
+  h1{
+    font-size:clamp(24px,3.6vw,34px);
+    margin:0 0 1rem;
+    border-left:6px solid var(--accent);
+    padding-left:12px
+  }
+  h2,h3,h4{
+    margin:1.1rem 0 0.5rem;
+    border-left:4px solid var(--accent);
+    padding-left:10px
+  }
+  p{margin:0 0 0.6rem}
+  ol,ul{margin:0.2rem 0 0.9rem 1.4rem}
+  li{margin:0.25rem 0}
+  table{
+    width:100%;
+    border-collapse:collapse;
+    margin:1rem 0;
+    border:1px solid var(--border)
+  }
+  th,td{
+    border:1px solid var(--border);
+    padding:8px 10px;
+    vertical-align:top
+  }
+  tbody tr:nth-child(even){background:#fbfdff}
+  @media print{
+    @page{size:A4;margin:14mm}
+    body{padding:0}
+    h1,h2,h3,h4{border-color:#000}
+  }
+</style>
+<link href="../../common/style_base.css" rel="stylesheet"/>
+<script defer="" src="../../common/script.js"></script>
+<style>
+  a { pointer-events:auto; }
+  .teacher-only{display:none;}
+  .teacher-mode .teacher-only{display:block;}
+  .teacher-underline{
+    text-decoration-line:underline;
+    text-decoration-style:wavy;
+    text-decoration-color:#0ea5e9;
+  }
+</style>
+<script id="default-student-on-load">
+window.addEventListener("DOMContentLoaded",()=>{
+  document.body.classList.remove("teacher-mode");
+  document.body.classList.add("student");
+});
+</script>
+<style id="line-height-img-tools">
+:root { --lh: 1.85; }
+.h-3lines { height: auto; width: auto; max-height: calc(1em * var(--lh) * 3); }
+.h-6lines { height: auto; width: auto; max-height: calc(1em * var(--lh) * 6); }
+.h-12lines { height: auto; width: auto; max-height: calc(1em * var(--lh) * 12); }
+.fig img { max-width: 100%; height: auto; }
+</style>
+</head>
+<body class="student">
+<header class="site">
+<div>
+<strong>四、物質量と化学反応式</strong>
+</div>
+<div>
+<button class="btn btn-primary" id="btn-teacher">
+      教师用
+    </button>
+<button class="btn" id="btn-print">
+      印刷
+    </button>
+</div>
+</header>
+<main>
+<h1>四、物質量と化学反応式</h1>
+
+<h2>一、物質量</h2>
+<ol>
+  <li><strong>アボガドロ数：</strong><sup>12</sup>C 原子 12.0 g に含まれる原子の数。6.02×10<sup>23</sup>（単位なし）。<br>
+    12C 原子 1 個の質量は 1.993×10<sup>−23</sup> g なので、12 g / 1.993×10<sup>−23</sup> g ≈ 6.02×10<sup>23</sup></li>
+  <li><strong>物質量 n：</strong>粒子の個数に着目して表した物質の量。単位はモル [mol]。<br>
+    6.02×10<sup>23</sup> 個粒子（原子・イオン・分子）を 1 モル [mol] と定義する。</li>
+  <li><strong>アボガドロ定数 N<sub>A</sub>：</strong>1 mol あたりの粒子の個数。N<sub>A</sub> = 6.02×10<sup>23</sup> /mol。<br>
+    n[mol] = N / N<sub>A</sub> （N：粒子の数）<br>
+    例：アンモニア分子 NH<sub>3</sub> 1.5 mol に含まれるアンモニア分子の数、および H 原子の数を求めよ。</li>
+  <li><strong>モル質量 M：</strong>物質 1 mol あたりの質量。単位は g/mol。<br>
+    ※ モル質量(M) = 原子量・式量・分子量の数値 + [g/mol]<br>
+    n[mol] = w[g] / M[g/mol] （w：物質の質量）<br>
+    <strong>例1：</strong>硫化水素 H<sub>2</sub>S 2.5 mol は何 g か。（H=1, S=32） <span class="teacher-only">答：85 g</span>
+  </li>
+</ol>
+<p><strong>例2：</strong>含まれる分子数が最も多いものを①〜④から選べ。</p>
+<ol>
+  <li>酸素 16 g</li>
+  <li>メタン 16 g</li>
+  <li>水素 3 g</li>
+  <li>二酸化炭素 22 g</li>
+</ol>
+<p><strong>例3：</strong>原子量 51 の金属 M の酸化物 1.82 g 中の M は 1.02 g であった。組成式として正しいものを①〜⑥から選べ。</p>
+<p>① MO　② MO<sub>2</sub>　③ M<sub>2</sub>O　④ M<sub>2</sub>O<sub>3</sub>　⑤ M<sub>2</sub>O<sub>5</sub>　⑥ M<sub>3</sub>O<sub>2</sub></p>
+
+<h2>二、気体のモル体積</h2>
+<p><strong>アボガドロの法則：</strong>同温・同圧で同体積の気体は同数の分子を含む。</p>
+<p><strong>標準状態：</strong>0℃, 1.013×10<sup>5</sup> Pa（1 atm）。標準状態で 1 mol 気体の体積 22.4 L。</p>
+<p>n[mol] = V[L] / 22.4[L/mol] （標準状態の体積 V）</p>
+<p><strong>例1：</strong>標準状態で 2.24 L の NH<sub>3</sub> は何 mol か。<span class="teacher-only">答：0.10 mol</span></p>
+<p><strong>例2：</strong>0℃, 1.01×10<sup>5</sup> Pa, 体積 5.6 L の CO<sub>2</sub> に含まれる原子数に最も近い値を①〜⑥から選べ（理想気体とする）。</p>
+<p>① 1.5×10<sup>23</sup>　② 3.0×10<sup>23</sup>　③ 4.5×10<sup>23</sup>　④ 2.4×10<sup>24</sup>　⑤ 4.8×10<sup>24</sup>　⑥ 7.2×10<sup>24</sup></p>
+
+<h3>気体の密度とモル質量</h3>
+<p>M[g/mol] = 22.4[L/mol] × d[g/L] （標準状態）</p>
+<p><strong>例：</strong>標準状態で密度 0.90 g/L に最も近い気体を①〜⑤から選べ。</p>
+<p>① Ar　② CH<sub>4</sub>　③ He　④ N<sub>2</sub>　⑤ Ne</p>
+
+<h2>三、溶液の濃度</h2>
+<p>溶解：溶質が溶媒に拡散して均一な溶液になる現象。溶液の質量＝溶質＋溶媒。</p>
+<p><strong>濃度：</strong>溶液中に溶けている溶質の割合。</p>
+<ul>
+  <li>質量パーセント濃度[%]</li>
+  <li>モル濃度 c[mol/L]</li>
+</ul>
+<p><strong>例1：</strong>0.2 mol/L の NaOH aq 75 mL には NaOH が何 g 含まれるか。（NaOH=40）<span class="teacher-only">答：0.60 g</span></p>
+<p><strong>例2：</strong>CuSO<sub>4</sub>・5H<sub>2</sub>O 5.00 g を 35.0 g の水に溶かし，密度 1.05 g/cm³ の溶液ができた。モル濃度に最も近い値を①～⑤から選べ。</p>
+<p>① 0.50　② 0.53　③ 0.60　④ 0.78　⑤ 0.82</p>
+<p><strong>例3：</strong>濃塩酸 (12 mol/L) を希釈して 0.50 mol/L の塩酸 100 mL を作るとき，必要な濃塩酸の体積を①～⑤から選べ。</p>
+<p>① 4.2　② 6.0　③ 3.0　④ 9.6　⑤ 18</p>
+<p><strong>例4：</strong>質量パーセント濃度 20% の塩酸（密度 1.1 g/cm³）のモル濃度として最も近い値を①～⑥から選べ（Cl=35, H=1）。</p>
+<p>① 0.15　② 0.61　③ 1.2　④ 5.1　⑤ 6.1　⑥ 12</p>
+
+<h2>四、化学反応式とその量的関係</h2>
+<h3>化学反応式の書き方</h3>
+<ol>
+  <li>反応物を左辺，生成物を右辺に書き，矢印（→）で結ぶ。</li>
+  <li>両辺で各原子の種類と数が等しくなるよう係数を付ける（最簡整数比）。</li>
+  <li>溶媒や触媒など反応前後で変化しない物質は書かない。</li>
+</ol>
+<p><strong>例：</strong>プロパン C<sub>3</sub>H<sub>8</sub> の完全燃焼：</p>
+<p>C<sub>3</sub>H<sub>8</sub> + 5O<sub>2</sub> → 3CO<sub>2</sub> + 4H<sub>2</sub>O</p>
+
+<h3>複雑な反応式（特定係数法）</h3>
+<p><strong>例：</strong>NH<sub>3</sub> と O<sub>2</sub> から NO と H<sub>2</sub>O</p>
+<p>4NH<sub>3</sub> + 5O<sub>2</sub> → 4NO + 6H<sub>2</sub>O</p>
+
+<h3>イオン反応式</h3>
+<p>関係したイオンのみで表し，原子数と電荷が両辺で一致すること。</p>
+<p>例：2Ag<sup>+</sup> + Cu → 2Ag + Cu<sup>2+</sup></p>
+
+<h3>化学反応式の表す量的関係</h3>
+<p>係数比 = モル数の比 =（気体同温同圧なら）体積比</p>
+<p>例：CH<sub>4</sub> + 2O<sub>2</sub> → CO<sub>2</sub> + 2H<sub>2</sub>O → モル比 1:2:1:2</p>
+
+<h3>演習</h3>
+<ul>
+  <li><strong>例1：</strong>Al が燃焼して Al<sub>2</sub>O<sub>3</sub> を得る。Al<sub>2</sub>O<sub>3</sub> 5.1 g を得るために必要な Al 質量を①～⑥から選べ。（O=16, Al=27）<br>① 1.8　② 2.3　③ 2.7　④ 3.2　⑤ 4.8　⑥ 5.4</li>
+  <li><strong>例2：</strong>MCO<sub>3</sub> 37 g を加熱し CO<sub>2</sub> 11 g 発生。M の原子量を①～⑥から選べ。（C=12, O=16）<br>① 24　② 36　③ 40　④ 55　⑤ 88　⑥ 140</li>
+  <li><strong>例3：</strong>27℃, 1.0×10<sup>5</sup> Pa で C<sub>3</sub>H<sub>8</sub> 1 L と空気 50 L を点火。完全燃焼後，同温同圧にもどしたときの気体体積を①～⑥から選べ（空気 O<sub>2</sub>20%, N<sub>2</sub>80%, 水蒸気圧無視）。<br>① 7　② 43　③ 45　④ 48　⑤ 51　⑥ 52</li>
+</ul>
+
+<h3>反応物の過不足</h3>
+<p>過不足があるときは「不足する方」を基準に生成物量を求める。</p>
+<p><strong>例：</strong>Al 2.7 g に 2.0 mol/L の HCl aq を 25 mL 加えたとき、発生する H<sub>2</sub>（標準状態）は何 L か。</p>
+<p>① 0.56　② 1.1　③ 2.2　④ 2.8　⑤ 3.4　⑥ 4.5</p>
+</main>
+<p></p>
+<script id="sanitize-print-button">
+document.addEventListener('DOMContentLoaded', function () {
+  var btnTeacher = document.getElementById('btn-teacher');
+  if (btnTeacher) {
+    btnTeacher.addEventListener('click', function(){
+      var toTeacher = !document.body.classList.contains('teacher-mode');
+      document.body.classList.toggle('teacher-mode', toTeacher);
+      document.body.classList.toggle('student', !toTeacher);
+    });
+  }
+
+  var oldBtn = document.getElementById('btn-print');
+  if (!oldBtn) return;
+
+  var btn = oldBtn.cloneNode(true);
+  btn.type = 'button';
+  btn.removeAttribute('onclick');
+  if (btn.tagName.toLowerCase() === 'a') btn.setAttribute('href', '#');
+  oldBtn.parentNode.replaceChild(btn, oldBtn);
+
+  let printing = false;
+  btn.addEventListener('click', function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+    if (e.stopImmediatePropagation) e.stopImmediatePropagation();
+    if (printing) return;
+    printing = true;
+    const isTeacher = document.body.classList.contains('teacher-mode');
+    document.body.classList.toggle('print-teacher', isTeacher);
+    document.body.classList.toggle('print-student', !isTeacher);
+    requestAnimationFrame(function () {
+      window.print();
+      setTimeout(function () {
+        printing = false;
+        document.body.classList.remove('print-teacher','print-student');
+      }, 1200);
+    });
+  }, { capture: true, passive: false });
+});
+</script>
+</body>
+</html>

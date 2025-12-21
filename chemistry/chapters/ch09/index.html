@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>九、酸・塩基・中和反応</title>
+<!-- 打印模式识别（学生/教师） -->
+<style>
+  @media print {
+    body:not(.teacher-mode) .teacher-only {
+      display: none !important;
+      visibility: hidden !important;
+    }
+    body.teacher-mode .teacher-only { visibility: visible !important; }
+    body.teacher-mode p.teacher-only,
+    body.teacher-mode div.teacher-only,
+    body.teacher-mode section.teacher-only,
+    body.teacher-mode article.teacher-only,
+    body.teacher-mode table.teacher-only,
+    body.teacher-mode ol.teacher-only,
+    body.teacher-mode ul.teacher-only {
+      display: block !important;
+    }
+    body.teacher-mode li.teacher-only {
+      display: list-item !important;
+    }
+  }
+</style>
+<!-- 页面基础排版 -->
+<style>
+  body {
+    font-family:"Hiragino Kaku Gothic ProN",sans-serif;
+    max-width:900px;
+    margin:0 auto;
+    padding:32px;
+    line-height:1.7;
+    color:#111
+  }
+  h1,h2,h3{margin:16px 0}
+  table{border-collapse:collapse;width:100%;margin:12px 0}
+  td,th{border:1px solid #ddd;padding:6px;vertical-align:top}
+  ol,ul{margin:0 0 12px 24px}
+</style>
+<!-- 色彩主题与打印分页 -->
+<style>
+  :root{
+    --ink:#0f172a;
+    --muted:#475569;
+    --border:#e2e8f0;
+    --bg:#ffffff;
+    --accent:#2563eb;
+  }
+  html,body{background:var(--bg);color:var(--ink);}
+  body{
+    font-family:"Hiragino Kaku Gothic ProN","Noto Sans CJK JP",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+    max-width:900px;
+    margin:0 auto;
+    padding:28px;
+    line-height:1.85
+  }
+  h1{
+    font-size:clamp(24px,3.6vw,34px);
+    margin:0 0 1rem;
+    border-left:6px solid var(--accent);
+    padding-left:12px
+  }
+  h2,h3,h4{
+    margin:1.1rem 0 0.5rem;
+    border-left:4px solid var(--accent);
+    padding-left:10px
+  }
+  body>p:first-of-type{
+    font-size:clamp(22px,3.2vw,30px);
+    font-weight:700;
+    margin:0 0 0.75rem;
+    border-left:6px solid var(--accent);
+    padding-left:12px
+  }
+  p{margin:0 0 0.6rem}
+  ol,ul{margin:0.2rem 0 0.9rem 1.4rem}
+  li{margin:0.25rem 0}
+  table{
+    width:100%;
+    border-collapse:collapse;
+    margin:1rem 0;
+    border:1px solid var(--border)
+  }
+  th,td{
+    border:1px solid var(--border);
+    padding:8px 10px;
+    vertical-align:top
+  }
+  tbody tr:nth-child(even){background:#fbfdff}
+  @media print{
+    @page{size:A4;margin:14mm}
+    body{padding:0}
+    body>p:first-of-type{border-color:#000}
+    h1,h2,h3,h4{border-color:#000}
+    .page-break-start{break-before:page;page-break-before:always;}
+    .page-break-end{break-after:page;page-break-after:always;}
+    .keep-with-next{break-after:avoid;page-break-after:avoid;}
+    .keep-together{break-inside:avoid;page-break-inside:avoid;}
+  }
+</style>
+<link href="../../common/style_base.css" rel="stylesheet"/>
+<script defer="" src="../../common/script.js"></script>
+<style>
+  a { pointer-events:auto; }
+  .teacher-only{display:none;}
+  .teacher-mode .teacher-only{display:block;}
+  .teacher-underline{
+    text-decoration-line:underline;
+    text-decoration-style:wavy;
+    text-decoration-color:#0ea5e9;
+  }
+</style>
+<script>
+  (function(){
+    try{
+      var keys=['teacherMode','teacher.enabled','view-role','role','teacher_mode','ink:role'];
+      keys.forEach(k=>{localStorage.removeItem(k);sessionStorage.removeItem(k);});
+    }catch(e){}
+    document.addEventListener('DOMContentLoaded',function(){
+      document.body.classList.remove('teacher-mode');
+    });
+  })();
+</script>
+<style id="ultimate-print-override">
+@media print {
+  body.print-student .teacher-only {
+    display: none !important;
+    visibility: hidden !important;
+  }
+  body.print-teacher .teacher-only {
+    visibility: visible !important;
+    display: initial !important;
+  }
+  body.print-teacher p.teacher-only,
+  body.print-teacher div.teacher-only,
+  body.print-teacher section.teacher-only,
+  body.print-teacher article.teacher-only,
+  body.print-teacher table.teacher-only,
+  body.print-teacher ol.teacher-only,
+  body.print-teacher ul.teacher-only,
+  body.print-teacher figure.teacher-only {
+    display: block !important;
+  }
+  body.print-teacher li.teacher-only {
+    display: list-item !important;
+  }
+  body.print-teacher span.teacher-only,
+  body.print-teacher a.teacher-only,
+  body.print-teacher em.teacher-only,
+  body.print-teacher strong.teacher-only,
+  body.print-teacher code.teacher-only {
+    display: inline !important;
+  }
+}
+</style>
+<script id="default-student-on-load">
+window.addEventListener("DOMContentLoaded",()=>{
+  document.body.classList.remove("teacher-mode");
+  document.body.classList.add("student");
+});
+</script>
+<style id="line-height-img-tools">
+:root { --lh: 1.85; }
+.h-3lines { height: auto; width: auto; max-height: calc(1em * var(--lh) * 3); }
+.h-6lines { height: auto; width: auto; max-height: calc(1em * var(--lh) * 6); }
+.h-10lines { height: auto; width: auto; max-height: calc(1em * var(--lh) * 10); }
+.fig img { max-width: 100%; height: auto; }
+</style>
+<style>
+:root{--ink:#0f172a;--muted:#475569;--border:#e2e8f0;--bg:#ffffff;--accent:#2563eb;}
+figure{
+  margin:1rem 0;
+  border:1px solid var(--border);
+  padding:10px;
+  border-radius:10px;
+  background:#f8fafc
+}
+figure img{
+  display:block;
+  width:100%;
+  height:auto;
+}
+figcaption{
+  margin-top:6px;
+  color:var(--muted);
+  font-size:0.95rem
+}
+.note{
+  border-left:4px solid var(--accent);
+  background:#f0f7ff;
+  padding:10px 12px;
+  border-radius:8px;
+  margin:10px 0
+}
+hr{
+  border:none;
+  border-top:1px dashed var(--border);
+  margin:24px 0
+}
+h1,h2,h3{clear:both}
+</style>
+<style>
+  /* === 教師向け：学生には空白として見えるメモ === */
+.teacher-note-blank {
+  display: block;
+  margin: 12px 0;
+  position: relative;
+}
+
+/* 教師模式：正常显示文字 */
+.teacher-mode .teacher-note-blank {
+  color: #0f172a !important;
+  height: auto !important;
+  border-bottom: none !important;
+  text-decoration-line:underline;
+}
+
+/* 学生模式：内容隐藏 + 留白 */
+.student .teacher-note-blank {
+  color: transparent !important;   /* 文字不可见 */
+  height: 16em !important;          /* ← 空白高度，可自定义 */
+  border-bottom: 1px dotted #cbd5e1; 
+  margin: 16px 0;
+}
+</style>
+</head>
+<body class="student">
+<header class="site">
+  <div>
+    <strong>酸・塩基・中和反応</strong>
+  </div>
+  <div>
+    <button class="btn btn-primary" id="btn-teacher">
+      教師用
+    </button>
+    <button class="btn" id="btn-print">
+      印刷
+    </button>
+  </div>
+</header>
+
+<main>
+
+  <h1>九、酸・塩基・中和反応</h1>
+
+  <!-- 一、酸・塩基の定義 -->
+  <h2>一、酸・塩基の定義</h2>
+
+  <h3>1. アレニウスの定義</h3>
+  <ul>
+    <li><strong>酸：</strong>水に溶けて H<sup>+</sup> を生じる物質。</li>
+    <li><strong>塩基：</strong>水に溶けて OH<sup>−</sup> を生じる物質。</li>
+  </ul>
+
+  <h3>2. ブレンステッド・ローリーの定義</h3>
+  <ul>
+    <li><strong>酸：</strong>H<sup>+</sup> を与えることができる物質（プロトン供与体）。</li>
+    <li><strong>塩基：</strong>H<sup>+</sup> を受け取ることができる物質（プロトン受容体）。</li>
+  </ul>
+
+  <p><strong>例：</strong> 次の反応で，各物質の中が酸として働いているものが 2 つある。その組合を答えなさい。</p>
+  <p style="margin-left:1.5em;">CO₃²⁻ + H₂O ⇄ HCO₃⁻ + OH⁻</p>
+
+  <h3>3. 酸・塩基の価数</h3>
+  <p>アレニウスの定義：</p>
+  <ul>
+    <li><strong>酸の価数：</strong>1分⼦の酸が電離できる H<sup>+</sup> の数。</li>
+    <li><strong>塩基の価数：</strong>1分⼦の塩基が電離できるOH<sup>-</sup> の数。</li>
+  </ul>
+  <p>ブレンステッドとローリーによる定義：</p>
+  <ul>
+    <li><strong>酸の価数：</strong>1 分子の酸が与えることができる H<sup>+</sup> の数。</li>
+    <li><strong>塩基の価数：</strong>1 分子の塩基が受け入れることができる H<sup>+</sup> の数。</li>
+  </ul>
+
+  <h3>4. 酸・塩基の強弱と電離度</h3>
+  <p><strong>電離度 α：</strong>溶けた物質のうち，電離してイオンになった割合。</p>
+  <figure>
+    <img src="assets/901.png" alt="901 酸・塩基の電離度"  class="h-3lines">
+    <figcaption>901 酸・塩基の電離度</figcaption>
+  </figure>
+  <ul>
+    <li><strong>強酸・強塩基：</strong>水中でほぼ完全に電離する。</li>
+    <li><strong>弱酸・弱塩基：</strong>一部だけ電離し，電離平衡の状態にある。</li>
+  </ul>
+
+  <p><strong>例：</strong> ある 2 価の酸 0.20 mol を水に溶かしたところ，溶液中に H<sup>+</sup> が 0.010 mol 存在していた。この酸の電離度を求めよ。</p>
+
+  <figure>
+    <img src="assets/902.png" alt="902 酸・塩基の強弱と価数のまとめ" class="h-10lines">
+    <figcaption>902 酸・塩基の強弱と価数のまとめ</figcaption>
+  </figure>
+　<p>※ 多価酸は段階的に電離する。</p>
+  <hr/>
+
+  <!-- 二、水素イオン濃度と pH -->
+  <h2>二、水素イオン濃度と pH</h2>
+
+  <h3>1. 水の電離と水のイオン積</h3>
+  <p>水はごくわずかに電離して，次の平衡にある。</p>
+  <p style="margin-left:1.5em;">2H₂O ⇄ H₃O⁺ + OH⁻</p>
+  <p>このとき</p>
+  <div class="note">
+    <p>K<sub>w</sub> = [H⁺][OH⁻] = 1.0×10<sup>−14</sup> （25℃）</p>
+  </div>
+  <p>純水だけでなく，多くの水溶液でも温度が一定なら K<sub>w</sub> は一定とみなせる。</p>
+
+  <h3>2. 水素イオン濃度の求め方</h3>
+  <p>酸・塩基が完全電離するか，電離度が与えられていると，物質量から [H⁺] や [OH⁻] を求められる。</p>
+  <ul>
+    <li><strong>強酸・強塩基：</strong></li>
+    <li><strong>弱酸・弱塩基：</strong></li>
+  </ul>
+
+  <p><strong>例：</strong> 次の溶液の [H⁺] を求めよ（H=1, N=14）。</p>
+  <ol>
+    <li>0.010 mol/L の酢酸水溶液（電離度 0.042）。</li>
+    <li>アンモニア 0.34 g を水に溶かし，400 mL にした溶液（電離度 0.020）。</li>
+  </ol>
+
+  <h3>3. pH（pH = −log₁₀[H⁺]）</h3>
+  <p>水素イオン濃度を対数で表した値。</p>
+  <div class="note">
+    <p>pH = −log₁₀[H⁺]</p>
+    <p>[H⁺] = a × 10<sup>−n</sup> mol/L のとき，pH = n − log₁₀ a</p>
+    <p>特に a = 1 のとき，pH = n</p>
+  </div>
+
+  <p><strong>例 1：</strong> </p>
+  <figure>
+    <img src="assets/904.png" alt="904 " class="h-14lines">
+  </figure>
+  <p><strong>例 2：</strong> Na 金属を水に加えたときの溶液の pH を求める問題など。</p>
+
+  <figure>
+    <img src="assets/903.png" alt="903 pH の計算例" class="h-10lines">
+    <figcaption>903 pH に関する計算例</figcaption>
+  </figure>
+
+  <h3>4. 水溶液の酸性・塩基性と [H⁺] / pH</h3>
+  <p>25℃ において，水溶液の性質と [H⁺]・[OH⁻]・pH の関係は次のようになる。</p>
+  <ul>
+    <li>酸性： [H⁺] &gt; [OH⁻]，pH &lt; 7</li>
+    <li>中性： [H⁺] = [OH⁻] = 1.0×10<sup>−7</sup> mol/L，pH = 7</li>
+    <li>塩基性： [H⁺] &lt; [OH⁻]，pH &gt; 7</li>
+  </ul>
+
+  <h3>5. pH 指示薬</h3>
+  <p>水溶液の pH によって色が変化する試薬を <strong>pH 指示薬</strong> という。その色の変化する pH の範囲をその指示薬の<strong>変色域</strong>という。</p>
+
+  <figure>
+    <img src="assets/905.png" alt="905 pH指示薬の変色域" class="h-10lines">
+    <figcaption>905 pH 指示薬の変色域（メチルオレンジ・フェノールフタレイン・BTB など）</figcaption>
+  </figure>
+
+  <h3>6. pH に関する計算問題</h3>
+
+  <h4>(1) 希釈による pH の変化</h4>
+  <p>溶液を水で薄めると [H⁺] や [OH⁻] が変化し，pH も変わる。</p>
+  <p><strong>例：</strong> pH=1 の塩酸を水で 100 倍に希釈したときの pH，pH=13 の NaOH 水溶液を 1000 倍に希釈したときの pH を求める。</p>
+
+  <h4>(2) 混合溶液の pH</h4>
+  <p>2 つ以上の酸性・塩基性溶液を混合するとき，[H⁺]（または [OH⁻]）の全量から pH を求める。</p>
+  <p><strong>例：</strong> pH=2.0 の塩酸 10 mL と pH=3.0 の塩酸 20 mL を混合した水溶液の pH を求めよ。ただし、log<sub>10</sub>2=0.30とする。</p>
+
+  <h4>(3) 電離平衡と電離定数</h4>
+  <p>弱酸・弱塩基は，水溶液中で一部だけが電離し<strong>電離平衡</strong>の状態にある。このときの平衡定数を<strong>電離定数</strong>という。</p>
+  <ul>
+    <li>酸の電離定数：K<sub>a</sub></li>
+    <li>塩基の電離定数：K<sub>b</sub></li>
+    <p>温度が変わらなければ、その酸・塩基に固有の値になる。</p>
+  </ul>
+
+  <p>例：酢酸 CH<sub>3</sub>COOH の電離</p>
+  <p style="margin-left:1.5em;">CH<sub>3</sub>COOH ⇄ CH<sub>3</sub>COO<sup>−</sup> + H<sup>+</sup></p>
+  <p>弱酸 HA の初濃度を c（mol/L），電離度を α とすると，平衡時 K<sub>a</sub></p>
+  <div class="teacher-note-blank">
+   <p>Ka=[CH3COO-][H+]/[CH3COOH] </p>
+  
+  </div>
+
+  <figure>
+    <img src="assets/808.png" alt="図 808 電離平衡とpH計算の例題" class="h-6lines">
+    <figcaption>図 808　電離平衡と pH 計算の例題</figcaption>
+  </figure>
+  <div class="teacher-note-blank">
+   
+  </div>
+  <hr/>
+
+  <!-- 三、中和反応と塩の生成 -->
+  <h2>三、中和反応と塩の生成</h2>
+
+  <h3>1. 中和反応</h3>
+  <p>酸と塩基が反応して互いの性質を打ち消し合い，塩と水を生じる反応を <strong>中和反応</strong> という。</p>
+  <p>例：塩酸と水酸化ナトリウム水溶液</p>
+  <p style="margin-left:1.5em;">HCl aq + NaOH aq → NaCl aq + H₂O</p>
+
+  <h3>2. 塩</h3>
+  <p>酸からの陰イオンと，塩基からの陽イオンが結合してできた化合物を <strong>塩</strong> という。</p>
+
+  <h3>3. 中和反応の量的関係</h3>
+  <p>中和反応では，酸・塩基の<strong>価数 × 物質量</strong> が等しくなるように反応が進む。</p>
+  <p>※ 酸・塩基の「強弱」は，中和に必要な量比には影響しない。</p>
+
+  <figure>
+    <img src="assets/906.png" alt="906 中和計算の例1・例2" class="h-14lines">
+    <figcaption>906 中和反応計算の例（1・2）</figcaption>
+  </figure>
+
+  <figure>
+    <img src="assets/907.png" alt="907 中和計算の例3" class="h-14lines">
+    <figcaption>907 中和反応計算の例（3）</figcaption>
+  </figure>
+
+  <figure>
+    <img src="assets/908.png" alt="908 中和計算の例4" class="h-14lines">
+    <figcaption>908 中和反応計算の例（4）</figcaption>
+  </figure>
+
+  <h3>4. 塩の分類</h3>
+  <p>塩は，もとの酸と塩基の種類によって分類できる。</p>
+  <ul>
+    <li>酸性塩・塩基性塩・正塩・複塩・錯塩 など。</li>
+    
+  </ul>
+
+  <figure>
+    <img src="assets/909.png" alt="909 塩の分類の表" class="h-14lines">
+    <figcaption>909 塩の分類の表（酸性塩・塩基性塩・正塩・複塩・錯塩）</figcaption>
+  </figure>
+  <li>※ この分類は塩の水溶液の液性（酸性・塩基性）とは直接関係しない。</li>
+  <h3>5. 弱酸・弱塩基の遊離</h3>
+  <p>強酸の塩と弱酸の塩，強塩基の塩と弱塩基の塩を混合すると，より強い酸・塩基に対応するイオンが反応し，弱酸・弱塩基が遊離することがある。</p>
+  <p>例：NH₄Cl aq + NaOH aq → NH₃ ↑ + NaCl aq + H₂O</p>
+  <h3>6. 塩の加水分解と水溶液の液性</h3>
+  <p>塩は水溶液中で完全に電離し，酸の陰イオンと塩基の陽イオンを生じる。そのうち弱酸由来の陰イオン・弱塩基由来の陽イオンは水と反応して，再び弱酸・弱塩基の分子に戻る。この現象を<strong>塩の加水分解</strong>という。</p>
+
+  <figure>
+    <img src="assets/809.png" alt="図 809 塩の水溶液の液性" class="h-14lines">
+    <figcaption>図 809　塩の水溶液の液性と加水分解</figcaption>
+  </figure>
+
+  <h3>7. 緩衝溶液</h3>
+  <p>弱酸とその塩，または弱塩基とその塩の混合溶液に少量の酸・塩基を加えても，pH がほとんど変化しない。このような溶液を<strong>緩衝溶液</strong>という。</p>
+  <ul>
+    <li>例：酢酸 CH<sub>3</sub>COOH と酢酸ナトリウム CH<sub>3</sub>COONa</li>
+    <li>例：アンモニア NH<sub>3</sub> と塩化アンモニウム NH<sub>4</sub>Cl</li>
+  </ul>
+
+  <figure>
+    <img src="assets/810.png" alt="図 810 緩衝溶液の例題" class="h-14lines">
+    <figcaption>図 810　緩衝溶液と酸塩基平衡の例題</figcaption>
+  </figure>
+  <h3>8. 中和実験操作</h3>
+
+<p>
+中和滴定は，酸と塩基が当量関係で反応する点（当量点）を，
+指示薬の変色などから求める定量分析である。
+正確な結果を得るためには，各器具の役割と操作方法を正しく理解することが重要である。
+<a href="https://www.youtube.com/watch?v=7tNrlFGm9Bo" target="_blank" rel="noopener">滴定実験の動画</a>
+</p>
+
+<h4>① 使用器具とその役割</h4>
+<ul>
+  <li>
+    <strong>ホールピペット</strong><br>
+    濃度未知の溶液を正確な体積で量り取るための器具。
+  </li>
+  <li>
+    <strong>メスフラスコ（容量瓶）</strong><br>
+    一定体積となるように溶液を配制・希釈する器具。
+    主に標準溶液の調製に用いられる。
+  </li>
+  <li>
+    <strong>コニカルビーカー</strong><br>
+    ホールピペットで量り取った濃度未知溶液を入れ，
+    滴定操作を行う反応容器。
+  </li>
+  <li>
+    <strong>ビュレット</strong><br>
+    濃度既知の標準溶液を少量ずつ滴下し，
+    滴下した体積を正確に読み取るための器具。
+  </li>
+  
+</ul>
+
+<figure>
+  <img src="assets/811.png" alt="図 811" class="h-6lines">
+  <figcaption>図 811　</figcaption>
+</figure>
+
+<h4>② 基本的な操作手順</h4>
+<ol>
+  <li>
+    ホールピペットを用いて，濃度未知の溶液を一定体積，
+    三角フラスコに量り取る。
+  </li>
+  <li>
+    フラスコ内に適切な指示薬を数滴加える。
+  </li>
+  <li>
+    ビュレットに標準溶液を入れ，初期目盛を読む。
+  </li>
+  <li>
+    フラスコ内を攪拌しながら，標準溶液をビュレットから滴下する。
+  </li>
+  <li>
+    指示薬の色が変化し，その色が持続した点を終点とする。
+  </li>
+  <li>
+    ビュレットの目盛から使用した標準溶液の体積を求め，
+    未知溶液の濃度を計算する。
+  </li>
+</ol>
+
+<h4>③ 操作上の注意</h4>
+<ul>
+  <li>ビュレットおよびホールピペットは使用前に共洗いを行う</li>
+  <li>目盛は視線を水平にして読み取る</li>
+  <li>終点付近では滴下量をできるだけ小さくする</li>
+</ul>
+
+<h3>9. 中和曲線</h3>
+
+<p>
+中和曲線とは，一定量の酸または塩基に対して，
+相手の溶液を徐々に加えたときの pH の変化を表したグラフである。
+横軸に加えた溶液の体積，縦軸に pH をとる。
+</p>
+
+<h4>① 強酸－強塩基の中和</h4>
+<ul>
+  <li>中和における pH はほぼ 7 となる</li>
+  <li>中和点付近で pH が急激に変化する</li>
+</ul>
+
+<h4>② 弱酸－強塩基の中和</h4>
+<ul>
+  <li>中和点の pH は 7 より大きい</li>
+</ul>
+
+<h4>③ 弱塩基－強酸の中和</h4>
+<ul>
+  <li>中和点の pH は 7 より小さい</li>
+</ul>
+
+<h4>④ 指示薬の選択</h4>
+<p>
+中和曲線における急激な pH 変化の範囲と，
+指示薬の変色域が一致するものを選ぶ必要がある。
+例：弱酸－強塩基の中和では，フェノールフタレインがよく用いられる。
+</p>
+  <hr/>
+
+</main>
+
+<p></p>
+
+<script id="sanitize-print-button">
+document.addEventListener('DOMContentLoaded', function () {
+  var btnTeacher = document.getElementById('btn-teacher');
+  if (btnTeacher) {
+    btnTeacher.addEventListener('click', function(){
+      var toTeacher = !document.body.classList.contains('teacher-mode');
+      document.body.classList.toggle('teacher-mode', toTeacher);
+      document.body.classList.toggle('student', !toTeacher);
+    });
+  }
+
+  var oldBtn = document.getElementById('btn-print');
+  if (!oldBtn) return;
+
+  var btn = oldBtn.cloneNode(true);
+  btn.type = 'button';
+  btn.removeAttribute('onclick');
+  if (btn.tagName.toLowerCase() === 'a') btn.setAttribute('href', '#');
+  oldBtn.parentNode.replaceChild(btn, oldBtn);
+
+  let printing = false;
+  btn.addEventListener('click', function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+    if (e.stopImmediatePropagation) e.stopImmediatePropagation();
+    if (printing) return;
+    printing = true;
+    const isTeacher = document.body.classList.contains('teacher-mode');
+    document.body.classList.toggle('print-teacher', isTeacher);
+    document.body.classList.toggle('print-student', !isTeacher);
+    requestAnimationFrame(function () {
+      window.print();
+      setTimeout(function () {
+        printing = false;
+        document.body.classList.remove('print-teacher','print-student');
+      }, 1200);
+    });
+  }, { capture: true, passive: false });
+});
+</script>
+</body>
+</html>

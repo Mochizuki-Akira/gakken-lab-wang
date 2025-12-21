@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>八、反応の速さと化学平衡</title>
+<!-- 打印模式识别（学生/教师） -->
+<style>
+  @media print {
+    body:not(.teacher-mode) .teacher-only {
+      display: none !important;
+      visibility: hidden !important;
+    }
+    body.teacher-mode .teacher-only { visibility: visible !important; }
+    body.teacher-mode p.teacher-only,
+    body.teacher-mode div.teacher-only,
+    body.teacher-mode section.teacher-only,
+    body.teacher-mode article.teacher-only,
+    body.teacher-mode table.teacher-only,
+    body.teacher-mode ol.teacher-only,
+    body.teacher-mode ul.teacher-only {
+      display: block !重要;
+    }
+    body.teacher-mode li.teacher-only {
+      display: list-item !important;
+    }
+  }
+</style>
+<!-- 页面基础排版 -->
+<style>
+  body {
+    font-family:"Hiragino Kaku Gothic ProN",sans-serif;
+    max-width:900px;
+    margin:0 auto;
+    padding:32px;
+    line-height:1.7;
+    color:#111
+  }
+  h1,h2,h3{margin:16px 0}
+  table{border-collapse:collapse;width:100%;margin:12px 0}
+  td,th{border:1px solid #ddd;padding:6px;vertical-align:top}
+  ol,ul{margin:0 0 12px 24px}
+</style>
+<!-- 色彩主题与打印分页 -->
+<style>
+  :root{
+    --ink:#0f172a;
+    --muted:#475569;
+    --border:#e2e8f0;
+    --bg:#ffffff;
+    --accent:#2563eb;
+  }
+  html,body{background:var(--bg);color:var(--ink);}
+  body{
+    font-family:"Hiragino Kaku Gothic ProN","Noto Sans CJK JP",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+    max-width:900px;
+    margin:0 auto;
+    padding:28px;
+    line-height:1.85
+  }
+  h1{
+    font-size:clamp(24px,3.6vw,34px);
+    margin:0 0 1rem;
+    border-left:6px solid var(--accent);
+    padding-left:12px
+  }
+  h2,h3,h4{
+    margin:1.1rem 0 0.5rem;
+    border-left:4px solid var(--accent);
+    padding-left:10px
+  }
+  body>p:first-of-type{
+    font-size:clamp(22px,3.2vw,30px);
+    font-weight:700;
+    margin:0 0 0.75rem;
+    border-left:6px solid var(--accent);
+    padding-left:12px
+  }
+  p{margin:0 0 0.6rem}
+  ol,ul{margin:0.2rem 0 0.9rem 1.4rem}
+  li{margin:0.25rem 0}
+  table{
+    width:100%;
+    border-collapse:collapse;
+    margin:1rem 0;
+    border:1px solid var(--border)
+  }
+  th,td{
+    border:1px solid var(--border);
+    padding:8px 10px;
+    vertical-align:top
+  }
+  tbody tr:nth-child(even){background:#fbfdff}
+  @media print{
+    @page{size:A4;margin:14mm}
+    body{padding:0}
+    body>p:first-of-type{border-color:#000}
+    h1,h2,h3,h4{border-color:#000}
+    .page-break-start{break-before:page;page-break-before:always;}
+    .page-break-end{break-after:page;page-break-after:always;}
+    .keep-with-next{break-after:avoid;page-break-after:avoid;}
+    .keep-together{break-inside:avoid;page-break-inside:avoid;}
+  }
+</style>
+<link href="../../common/style_base.css" rel="stylesheet"/>
+<script defer="" src="../../common/script.js"></script>
+<style>
+  a { pointer-events:auto; }
+  .teacher-only{display:none;}
+  .teacher-mode .teacher-only{display:block;}
+  .teacher-underline{
+    text-decoration-line:underline;
+    text-decoration-style:wavy;
+    text-decoration-color:#0ea5e9;
+  }
+</style>
+<script>
+  (function(){
+    try{
+      var keys=['teacherMode','teacher.enabled','view-role','role','teacher_mode','ink:role'];
+      keys.forEach(k=>{localStorage.removeItem(k);sessionStorage.removeItem(k);});
+    }catch(e){}
+    document.addEventListener('DOMContentLoaded',function(){
+      document.body.classList.remove('teacher-mode');
+    });
+  })();
+</script>
+<style id="ultimate-print-override">
+@media print {
+  body.print-student .teacher-only {
+    display: none !important;
+    visibility: hidden !important;
+  }
+  body.print-teacher .teacher-only {
+    visibility: visible !important;
+    display: initial !important;
+  }
+  body.print-teacher p.teacher-only,
+  body.print-teacher div.teacher-only,
+  body.print-teacher section.teacher-only,
+  body.print-teacher article.teacher-only,
+  body.print-teacher table.teacher-only,
+  body.print-teacher ol.teacher-only,
+  body.print-teacher ul.teacher-only,
+  body.print-teacher figure.teacher-only {
+    display: block !important;
+  }
+  body.print-teacher li.teacher-only {
+    display: list-item !important;
+  }
+  body.print-teacher span.teacher-only,
+  body.print-teacher a.teacher-only,
+  body.print-teacher em.teacher-only,
+  body.print-teacher strong.teacher-only,
+  body.print-teacher code.teacher-only {
+    display: inline !important;
+  }
+}
+</style>
+<script id="default-student-on-load">
+window.addEventListener("DOMContentLoaded",()=>{
+  document.body.classList.remove("teacher-mode");
+  document.body.classList.add("student");
+});
+</script>
+<style id="line-height-img-tools">
+:root { --lh: 1.85; }
+.h-3lines { height: auto; width: auto; max-height: calc(1em * var(--lh) * 3); }
+.h-6lines { height: auto; width: auto; max-height: calc(1em * var(--lh) * 6); }
+.h-14lines { height: auto; width: auto; max-height: calc(1em * var(--lh) * 14); }
+.h-10lines { height: auto; width: auto; max-height: calc(1em * var(--lh) * 11); }
+.fig img { max-width: 100%; height: auto; }
+</style>
+<style>
+:root{--ink:#0f172a;--muted:#475569;--border:#e2e8f0;--bg:#ffffff;--accent:#2563eb;}
+figure{
+  margin:1rem 0;
+  border:1px solid var(--border);
+  padding:10px;
+  border-radius:10px;
+  background:#f8fafc
+}
+figure img{
+  display:block;
+  width:100%;
+  height:auto;
+}
+figcaption{
+  margin-top:6px;
+  color:var(--muted);
+  font-size:0.95rem
+}
+.note{
+  border-left:4px solid var(--accent);
+  background:#f0f7ff;
+  padding:10px 12px;
+  border-radius:8px;
+  margin:10px 0
+}
+hr{
+  border:none;
+  border-top:1px dashed var(--border);
+  margin:24px 0
+}
+h1,h2,h3{clear:both}
+</style>
+<style>
+  /* === 教師向け：学生には空白として見えるメモ === */
+.teacher-note-blank {
+  display: block;
+  margin: 12px 0;
+  position: relative;
+}
+
+/* 教師模式：正常显示文字 */
+.teacher-mode .teacher-note-blank {
+  color: #0f172a !important;
+  height: auto !important;
+  border-bottom: none !important;
+  text-decoration-line:underline;
+}
+
+/* 学生模式：内容隐藏 + 留白 */
+.student .teacher-note-blank {
+  color: transparent !important;   /* 文字不可见 */
+  height: 16em !important;          /* ← 空白高度，可自定义 */
+  border-bottom: 1px dotted #cbd5e1; 
+  margin: 16px 0;
+}
+</style>
+</head>
+<body class="student">
+<header class="site">
+  <div>
+    <strong>八、反応の速さと化学平衡</strong>
+  </div>
+  <div>
+    <button class="btn btn-primary" id="btn-teacher">
+      教師用
+    </button>
+    <button class="btn" id="btn-print">
+      印刷
+    </button>
+  </div>
+</header>
+
+<main>
+
+  <h1>八、反応の速さと化学平衡</h1>
+
+  <h2>一、化学反応の仕組み</h2>
+
+  <h3>1. 化学反応と活性化エネルギー</h3>
+  <p><strong>活性化状態：</strong>化学反応の途中に経由する，エネルギーの高い不安定な状態。</p>
+  <p><strong>活性化エネルギー：</strong>反応物を活性化状態にするのに必要な最小のエネルギー。</p>
+  <p>分子間で化学反応が起こるためには，<strong>活性化エネルギー以上</strong>のエネルギーをもつ分子どうしが衝突（有効衝突）する必要がある。</p>
+
+  <figure>
+    <img src="assets/801.png" alt="図 801 反応のエネルギー変化" class="h-6lines">
+    <figcaption>図 801　反応のエネルギーと活性化エネルギー</figcaption>
+  </figure>
+  <p>一般に，<strong>活性化エネルギーが小さいほど反応速度は大きくなる</strong>。</p>
+
+  <h2>二、化学反応の速さ</h2>
+
+  <h3>1. 反応の速さの表し方</h3>
+  <p>化学反応の速さは次のように表すことが多い。</p>
+  <ul>
+    <li>反応速度：単位時間あたりの<strong>反応物の減少量</strong></li>
+    <li>生成速度：単位時間あたりの<strong>生成物の増加量</strong></li>
+  </ul>
+
+  <figure>
+    <img src="assets/802.png" alt="図 802 濃度変化と反応速度" class="h-10lines">
+    <figcaption>図 802　反応の速さ（濃度変化のグラフ）</figcaption>
+  </figure>
+
+  <h3>2. 反応の速さを決める要因</h3>
+
+  <h4>(1) 濃度</h4>
+  <p>反応物の濃度が高いほど分子どうしの衝突回数が増え，反応速度は大きくなる。</p>
+
+  <h4>(2) 圧力（気体反応）</h4>
+  <p>気体反応では，濃度は分圧に比例する。成分気体の分圧が大きいほど反応速度は大きくなる。</p>
+
+  <h4>(3) 温度</h4>
+  <p>温度が高くなるほど，活性化エネルギーをこえる分子の割合が増えるため，反応速度は大きくなる。</p>
+
+  <h4>(4) 触媒</h4>
+  <p><strong>触媒：</strong>反応の前後で自らはほとんど変化しないが，反応速度を大きくする物質。</p>
+  <ul>
+    <li>触媒は<strong>新しい反応経路</strong>を与え，活性化エネルギーを小さくする。</li>
+    <li>触媒を用いても<strong>反応熱（反応前後のエネルギー差）は変化しない</strong>。</li>
+  </ul>
+
+  <h4>(5) 固体の表面積</h4>
+  <p>固体が関与する反応では，固体の表面積を大きくすると反応が起こる部分が増え，反応速度は大きくなる。</p>
+
+  <figure>
+    <img src="assets/803.png" alt="図 803 触媒と固体表面積の影響" class="h-6lines">
+    <figcaption>図 803　触媒と固体表面積の影響</figcaption>
+  </figure>
+
+  <h2>三、化学平衡</h2>
+
+  <h3>1. 可逆反応と平衡</h3>
+  <p>どちらの向きにも起こりうる反応を<strong>可逆反応</strong>という。</p>
+  <p>可逆反応が進行すると，ある時刻から<strong>正反応と逆反応の速さが等しくなり</strong>，各物質の濃度が見かけ上変化しなくなる。この状態を<strong>化学平衡</strong>という。</p>
+
+  <figure>
+    <img src="assets/804.png" alt="図 804 濃度と反応速度の変化" class="h-6lines">
+    <figcaption>図 804　化学平衡に達するまでの濃度と反応速度</figcaption>
+  </figure>
+
+  <h3>2. （濃度）平衡定数 K</h3>
+  <p>一般に</p>
+  <p style="margin-left:1.5em;">aA + bB ⇄ cC + dD</p>
+  <p>という可逆反応が平衡にあるとき，次の量は一定温度で一定値となる。</p>
+
+  <div class="note">
+    <p>K = [C]<sup>c</sup>[D]<sup>d</sup> / ([A]<sup>a</sup>[B]<sup>b</sup>)</p>
+  </div>
+
+  <ul>
+    <li>この K を<strong>（濃度）平衡定数</strong>という。</li>
+    <li>平衡定数は<strong>温度のみに依存</strong>し，温度が一定なら反応に固有の値である。</li>
+    <li>固体が関与する反応では，固体の濃度は一定とみなすので，K の式には書かない。</li>
+  </ul>
+
+  <figure>
+    <img src="assets/805.png" alt="図 805 平衡定数に関する例題" class="h-6lines">
+    <figcaption>図 805　例題１</figcaption>
+  </figure>
+
+  <h3>3. 圧平衡定数 K<sub>p</sub></h3>
+  <p>気体だけからなる反応では，各成分の<strong>分圧</strong>を用いて平衡定数を定義できる。</p>
+  <div class="note">
+    <p>K<sub>p</sub> = (P<sub>C</sub><sup>c</sup> P<sub>D</sub><sup>d</sup>) / (P<sub>A</sub><sup>a</sup> P<sub>B</sub><sup>b</sup>)</p>
+  </div>
+
+  <figure>
+    <img src="assets/806.png" alt="図 806 圧平衡定数に関する例題" class="h-14lines">
+    <figcaption>図 806　圧平衡定数 K<sub>p</sub> の利用</figcaption>
+  </figure>
+
+  <h2>四、平衡の移動（ルシャトリエの原理）</h2>
+
+  <h3>1. ルシャトリエの原理</h3>
+  <p>平衡状態にある系に濃度・圧力・温度などの変化を加えると，その変化を打ち消す方向に平衡が移動して新しい平衡状態になる。</p>
+
+  <h3>2. 濃度の変化</h3>
+  <ul>
+    <li>反応物の濃度を増加させる → 平衡は<strong>生成物側（右）</strong>へ移動。</li>
+    <li>生成物の濃度を増加させる → 平衡は<strong>反応物側（左）</strong>へ移動。</li>
+  </ul>
+
+  <h3>3. 圧力の変化（気体反応）</h3>
+  <ul>
+    <li>圧力を増加させる → 平衡は<strong>気体の係数の和が小さい側</strong>へ移動。</li>
+    <li>圧力を減少させる → 平衡は<strong>係数の和が大きい側</strong>へ移動。</li>
+    <li>前後で係数の和が同じなら，圧力変化による平衡移動は起こらない。</li>
+  </ul>
+
+  <h3>4. 温度の変化</h3>
+  <ul>
+    <li>温度を上げる → 平衡は<strong>吸熱反応</strong>の方向へ移動。</li>
+    <li>温度を下げる → 平衡は<strong>発熱反応</strong>の方向へ移動。</li>
+  </ul>
+
+  <h3>5. 触媒の影響</h3>
+  <p>触媒は正反応と逆反応の両方の活性化エネルギーを同じように小さくするので，<strong>平衡の位置は変化しない</strong>。</p>
+
+  <figure>
+    <img src="assets/807.png" alt="図 807 平衡移動の例題" class="h-14lines">
+    <figcaption>図 807　平衡の移動（ルシャトリエの原理）の例題</figcaption>
+  </figure>
+
+</main>
+
+<p></p>
+
+<script id="sanitize-print-button">
+document.addEventListener('DOMContentLoaded', function () {
+  var btnTeacher = document.getElementById('btn-teacher');
+  if (btnTeacher) {
+    btnTeacher.addEventListener('click', function(){
+      var toTeacher = !document.body.classList.contains('teacher-mode');
+      document.body.classList.toggle('teacher-mode', toTeacher);
+      document.body.classList.toggle('student', !toTeacher);
+    });
+  }
+
+  var oldBtn = document.getElementById('btn-print');
+  if (!oldBtn) return;
+
+  var btn = oldBtn.cloneNode(true);
+  btn.type = 'button';
+  btn.removeAttribute('onclick');
+  if (btn.tagName.toLowerCase() === 'a') btn.setAttribute('href', '#');
+  oldBtn.parentNode.replaceChild(btn, oldBtn);
+
+  let printing = false;
+  btn.addEventListener('click', function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+    if (e.stopImmediatePropagation) e.stopImmediatePropagation();
+    if (printing) return;
+    printing = true;
+    const isTeacher = document.body.classList.contains('teacher-mode');
+    document.body.classList.toggle('print-teacher', isTeacher);
+    document.body.classList.toggle('print-student', !isTeacher);
+    requestAnimationFrame(function () {
+      window.print();
+      setTimeout(function () {
+        printing = false;
+        document.body.classList.remove('print-teacher','print-student');
+      }, 1200);
+    });
+  }, { capture: true, passive: false });
+});
+</script>
+</body>
+</html>
